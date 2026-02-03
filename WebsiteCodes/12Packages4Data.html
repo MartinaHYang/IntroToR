@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../WebsiteCodes/Overview4.html" rel="next">
+<link href="../WebsiteCodes/Exercise2.html" rel="next">
 <link href="../WebsiteCodes/11AdvDataFrames.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -231,6 +231,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Exercise1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ ＃１</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Solutions1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ ＃１</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
@@ -307,6 +319,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Exercise2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ ＃２</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Solutions2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ ＃２</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Exercise3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ ＃３</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Solutions3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ ＃３</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
@@ -336,6 +372,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Exercise4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ ＃４</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../WebsiteCodes/Solutions4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ ＃４</span></a>
+  </div>
+</li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../WebsiteCodes/ConcludingRemarks.html" class="sidebar-item-text sidebar-link">
@@ -566,20 +614,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_pop =</span> <span class="fu">mean</span>(pop),</span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_gdp_billion =</span> <span class="fu">mean</span>(gdp_billion)</span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="do">## `summarise()` has grouped output by 'continent'. You can override using the</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="do">## `.groups` argument.</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(summary_table)</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 × 5</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="do">## # Groups:   continent [1]</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="do">##   continent  year mean_gdpPercap mean_pop mean_gdp_billion</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;fct&gt;     &lt;int&gt;          &lt;dbl&gt;    &lt;dbl&gt;            &lt;dbl&gt;</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 Africa     1952          1253. 4570010.             5.99</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Africa     1957          1385. 5093033.             7.36</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 Africa     1962          1598. 5702247.             8.78</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 Africa     1967          2050. 6447875.            11.4 </span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 Africa     1972          2340. 7305376.            15.1 </span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 Africa     1977          2586. 8328097.            18.7</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="do">## `summarise()` has regrouped the output.</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="do">## ℹ Summaries were computed grouped by continent and year.</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="do">## ℹ Output is grouped by continent.</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="do">## ℹ Use `summarise(.groups = "drop_last")` to silence this message.</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="do">## ℹ Use `summarise(.by = c(continent, year))` for per-operation grouping</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="do">##   (`?dplyr::dplyr_by`) instead.</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(summary_table)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 6 × 5</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="do">## # Groups:   continent [1]</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="do">##   continent  year mean_gdpPercap mean_pop mean_gdp_billion</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;fct&gt;     &lt;int&gt;          &lt;dbl&gt;    &lt;dbl&gt;            &lt;dbl&gt;</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="do">## 1 Africa     1952          1253. 4570010.             5.99</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 Africa     1957          1385. 5093033.             7.36</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="do">## 3 Africa     1962          1598. 5702247.             8.78</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="do">## 4 Africa     1967          2050. 6447875.            11.4 </span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="do">## 5 Africa     1972          2340. 7305376.            15.1 </span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="do">## 6 Africa     1977          2586. 8328097.            18.7</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="pro-tip-why-use-dplyr" class="level3">
 <h3 class="anchored" data-anchor-id="pro-tip-why-use-dplyr"><strong>Pro-Tip: Why use <code>dplyr::</code>?</strong></h3>
@@ -997,8 +1049,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../WebsiteCodes/Overview4.html" class="pagination-link" aria-label="Overview">
-        <span class="nav-page-text">Overview</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../WebsiteCodes/Exercise2.html" class="pagination-link" aria-label="🎃ＥＸＥＲＣＩＳＥ ＃２">
+        <span class="nav-page-text">🎃ＥＸＥＲＣＩＳＥ ＃２</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
