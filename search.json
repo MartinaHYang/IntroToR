@@ -60,6 +60,86 @@
     ]
   },
   {
+    "objectID": "WebsiteCodes/Solutions4.html",
+    "href": "WebsiteCodes/Solutions4.html",
+    "title": "Solutions: Medical Data",
+    "section": "",
+    "text": "if (!require(\"ggplot2\", quietly = TRUE))\n    install.packages(\"ggplot2\")\nlibrary(ggplot2)\n\nif (!require(\"medicaldata\", quietly = TRUE))\n    install.packages(\"medicaldata\")\nlibrary(medicaldata)\n\nif (!require(\"dplyr\", quietly = TRUE))\n    install.packages(\"dplyr\")\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\nlibrary(dplyr)\n\nif (!require(\"tidyr\", quietly = TRUE))\n    install.packages(\"tidyr\")\nlibrary(tidyr)\nUse the covid_testing data set and everything you’ve learned so far to answer the following questions:",
+    "crumbs": [
+      "👍ＳＯＬＵＴＩＯＮＳ＃４"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Solutions4.html#clinics-included",
+    "href": "WebsiteCodes/Solutions4.html#clinics-included",
+    "title": "Solutions: Medical Data",
+    "section": "Clinics included",
+    "text": "Clinics included\nHow many clinics participated in the study, and how many valid tests were performed on each one? Did the testing trend vary over time?\n\ncovid&lt;-covid_testing\n\n\nNumber of clinics\n\nclinics&lt;- covid %&gt;%\n          dplyr::select(subject_id,clinic_name,result,pan_day) %&gt;%\n          dplyr::distinct()\nlength(unique(clinics$clinic_name))\n\n[1] 88\n\n\n\n\nNumber of valid tests\n\nclinics %&gt;%\n  dplyr::filter(result!=\"invalid\") %&gt;%\n  dplyr::group_by(clinic_name) %&gt;%\n  dplyr::summarize(n_test = length(clinic_name)) %&gt;%\n  dplyr::arrange(desc(n_test))\n\n# A tibble: 88 × 2\n   clinic_name        n_test\n   &lt;chr&gt;               &lt;int&gt;\n 1 clinical lab         7397\n 2 emergency dept       3353\n 3 oncology day hosp     509\n 4 nicu                  285\n 5 laboratory            262\n 6 picu                  258\n 7 care ntwk             231\n 8 line clinical lab-    218\n 9 inpatient ward a      207\n10 radiation oncology    161\n# ℹ 78 more rows\n\n\n\n\nTesting trend over time\n\ncovid %&gt;%\n  filter(pan_day&lt;=100) %&gt;%\n  group_by(pan_day) %&gt;%\n  summarize(n=length(result)) %&gt;%\n  ggplot(.,aes(x=pan_day,y=n))+\n    geom_point()+\n    geom_line()+\n    ylab(\"Number of tests per day\")+\n    xlab(\"Pandemic day\")",
+    "crumbs": [
+      "👍ＳＯＬＵＴＩＯＮＳ＃４"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Solutions4.html#number-of-positive-tests",
+    "href": "WebsiteCodes/Solutions4.html#number-of-positive-tests",
+    "title": "Solutions: Medical Data",
+    "section": "Number of positive tests",
+    "text": "Number of positive tests\nHow many patients tested positive vs negative in the first 100 days of the pandemic? Do you notice any difference with the age of the patients? Hint: You can make two age groups and calculate the percentage each age group in positive vs negative tests.\n\nNumber of positive tests in the first 100 days\n\ncovid %&gt;%\n  filter(result!=\"invalid\" & pan_day&lt;=100) %&gt;%\n  group_by(result) %&gt;%\n  summarize(n=length(subject_id))\n\n# A tibble: 2 × 2\n  result       n\n  &lt;chr&gt;    &lt;int&gt;\n1 negative 13225\n2 positive   780\n\n\n\n\nTests by age group\n\ntsts_age&lt;-covid %&gt;%\n            filter(result!=\"invalid\" & pan_day&lt;=100) %&gt;%\n            mutate(age_group=ifelse(age&lt;=21,\"children\",\"adults\")) %&gt;%\n            group_by(age_group,result) %&gt;%\n            summarize(n=length(subject_id)) %&gt;%\n            mutate(percent_total=n/sum(n)*100)\n\n`summarise()` has regrouped the output.\nℹ Summaries were computed grouped by age_group and result.\nℹ Output is grouped by age_group.\nℹ Use `summarise(.groups = \"drop_last\")` to silence this message.\nℹ Use `summarise(.by = c(age_group, result))` for per-operation grouping\n  (`?dplyr::dplyr_by`) instead.\n\ntsts_age\n\n# A tibble: 4 × 4\n# Groups:   age_group [2]\n  age_group result       n percent_total\n  &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt;         &lt;dbl&gt;\n1 adults    negative  2627         92.1 \n2 adults    positive   226          7.92\n3 children  negative 10598         95.0 \n4 children  positive   554          4.97",
+    "crumbs": [
+      "👍ＳＯＬＵＴＩＯＮＳ＃４"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Solutions4.html#processing-times",
+    "href": "WebsiteCodes/Solutions4.html#processing-times",
+    "title": "Solutions: Medical Data",
+    "section": "Processing times",
+    "text": "Processing times\nLook at the specimen processing time to receipt, did the sample processing times improve over the first 100 days of the pandemic? Plot the median processing times of each day over the course of the pandemic and then compare the summary statistics of the first 50 vs the last 50 days\n\ncovid %&gt;%\n  group_by(pan_day) %&gt;%\n  dplyr::summarise(median_col_rec_tat=median(col_rec_tat)) %&gt;%\n  ggplot(.,aes(x=pan_day,y=median_col_rec_tat)) +\n  geom_point()+\n  geom_line()\n\n\n\n\n\n\n\n\n\ncovid %&gt;%\n  mutate(pan_day_group=ifelse(pan_day&lt;50,\"first_50\",\"last_50\")) %&gt;%\n  group_by(pan_day_group) %&gt;%\n  dplyr::summarise(mean_col_rec_tat=mean(col_rec_tat),\n                   median_col_rec_tat=median(col_rec_tat),\n                   min_col_rec_tat=min(col_rec_tat),\n                   max_col_rec_tat=max(col_rec_tat))\n\n# A tibble: 2 × 5\n  pan_day_group mean_col_rec_tat median_col_rec_tat min_col_rec_tat\n  &lt;chr&gt;                    &lt;dbl&gt;              &lt;dbl&gt;           &lt;dbl&gt;\n1 first_50                  3.26                1.9               0\n2 last_50                   9.41                1.9               0\n# ℹ 1 more variable: max_col_rec_tat &lt;dbl&gt;",
+    "crumbs": [
+      "👍ＳＯＬＵＴＩＯＮＳ＃４"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Solutions4.html#bonus---viral-load",
+    "href": "WebsiteCodes/Solutions4.html#bonus---viral-load",
+    "title": "Solutions: Medical Data",
+    "section": "Bonus - Viral load",
+    "text": "Bonus - Viral load\nHigher viral loads are detected in less PCR cycles.\nWhat can you observe about the viral load of positive vs negative samples.\nDo you notice anything differences in viral load across ages in the positive samples?\nHint: Also split the data into two age groups and try using geom_boxplot()\n\nggplot(covid,aes(y=ct_result,x=result,color=result))+\n  geom_boxplot()\n\n\n\n\n\n\n\n\n\ncovid %&gt;%\n  mutate(age_group=ifelse(age&lt;=21,\"children\",\"adults\")) %&gt;%\n  ggplot(.,aes(y=ct_result,x=result,color=age_group))+\n    geom_boxplot()",
+    "crumbs": [
+      "👍ＳＯＬＵＴＩＯＮＳ＃４"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Solutions2.html",
+    "href": "WebsiteCodes/Solutions2.html",
+    "title": "Solutions: Basic Data Manipulation",
+    "section": "",
+    "text": "library(gapminder)",
+    "crumbs": [
+      "👍ＳＯＬＵＴＩＯＮＳ＃２"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Solutions2.html#writing-data",
+    "href": "WebsiteCodes/Solutions2.html#writing-data",
+    "title": "Solutions: Basic Data Manipulation",
+    "section": "Writing data",
+    "text": "Writing data\nWrite a data processing snippet to include only the data points collected after 1995 in Asian countries as a CSV file\n\nasia&lt;-gapminder[gapminder$year &gt; 1995 & gapminder$continent==\"Asia\", ]\nwrite.table(asia,\n            file = \"../data/gapminder_after1995_asia.csv\",\n            sep = \",\", \n            quote = FALSE, \n            row.names = FALSE)\n\nSeparate the gapminder data frame into 5 individual data frames, one for each continent. Store those 5 data frames as an RData file in the objects folder called continents.RData.\n\nasia&lt;-gapminder[gapminder$continent==\"Asia\", ]\nafrica&lt;-gapminder[gapminder$continent==\"Africa\", ]\noceania&lt;-gapminder[gapminder$continent==\"Oceania\", ]\neurope&lt;-gapminder[gapminder$continent==\"Europe\", ]\namericas&lt;-gapminder[gapminder$continent==\"Americas\", ]\n\nsave(asia,africa,oceania,europe,americas,file=\"../data/continents.RData\")",
+    "crumbs": [
+      "👍ＳＯＬＵＴＩＯＮＳ＃２"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Solutions2.html#exploring-data-frames",
+    "href": "WebsiteCodes/Solutions2.html#exploring-data-frames",
+    "title": "Solutions: Basic Data Manipulation",
+    "section": "Exploring data frames",
+    "text": "Exploring data frames\nFinish exploring the gapminder data frame and:\n\nFind the number of rows and the number of columns\n\nPrint the data type of each column\n\nExplain the meaning of everything that str(gapminder) prints\n\n\ndim(gapminder)\n\ntypeof(gapminder$country)\ntypeof(gapminder$continent)\ntypeof(gapminder$year)\ntypeof(gapminder$lifeExp)\ntypeof(gapminder$pop)\ntypeof(gapminder$gdpPercap)\n\nstr(gapminder)\n\nIn which years has the GDP of Canada been larger than the average of all data points?\n\ncanada&lt;-gapminder[gapminder$country==\"Canada\",]\nmgdp&lt;-mean(canada$gdpPercap)\ncanada[canada$gdpPercap&gt;mgdp,\"year\"]\n\nFind the mean life expectancy of Switzerland before and after 2000\n\nswiss&lt;-gapminder[gapminder$country==\"Switzerland\",]\nmean(swiss[swiss$year&lt;2000,]$lifeExp) # Before\nmean(swiss[swiss$year&gt;2000,]$lifeExp) # After\n\nYou discovered that all the entries from 2007 are actually from 2008. Create a copy of the full gapminder data frame in an object called gp. Then change the year column to correct the entries from 2007.\n\ngp&lt;-gapminder\ngp[gp$year==2007,\"year\"]&lt;-2008\ngp[gp$year==2008,]\n\nBonus - Find the mean life expectancy and mean gdp per continent using the function tapply\n\ntapply(gapminder$lifeExp,gapminder$continent,mean)\n\n\ntapply(gapminder$lifeExp,gapminder$continent,mean)",
+    "crumbs": [
+      "👍ＳＯＬＵＴＩＯＮＳ＃２"
+    ]
+  },
+  {
     "objectID": "WebsiteCodes/Setup.html",
     "href": "WebsiteCodes/Setup.html",
     "title": "Getting Started: Installing R and RStudio",
@@ -143,11 +223,154 @@
     ]
   },
   {
+    "objectID": "WebsiteCodes/Exercise4.html",
+    "href": "WebsiteCodes/Exercise4.html",
+    "title": "Hands-on Exercise",
+    "section": "",
+    "text": "Use the covid_testing data set and everything you’ve learned so far to answer the following questions:",
+    "crumbs": [
+      "🎃ＥＸＥＲＣＩＳＥ＃４"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Exercise4.html#clinics-included",
+    "href": "WebsiteCodes/Exercise4.html#clinics-included",
+    "title": "Hands-on Exercise",
+    "section": "Clinics included",
+    "text": "Clinics included\nHow many clinics participated in the study, and how many valid tests were performed on each one? Did the testing trend vary over time?\n\nNumber of clinics\n\n\nNumber of valid tests\n\n\nTesting trend over time",
+    "crumbs": [
+      "🎃ＥＸＥＲＣＩＳＥ＃４"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Exercise4.html#number-of-positive-tests",
+    "href": "WebsiteCodes/Exercise4.html#number-of-positive-tests",
+    "title": "Hands-on Exercise",
+    "section": "Number of positive tests",
+    "text": "Number of positive tests\nHow many patients tested positive vs negative in the first 100 days of the pandemic? Do you notice any difference with the age of the patients? Hint: You can make two age groups and calculate the percentage each age group in positive vs negative tests.\n\nNumber of positive tests in the first 100 days\n\n\nTests by age group",
+    "crumbs": [
+      "🎃ＥＸＥＲＣＩＳＥ＃４"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Exercise4.html#processing-times",
+    "href": "WebsiteCodes/Exercise4.html#processing-times",
+    "title": "Hands-on Exercise",
+    "section": "Processing times",
+    "text": "Processing times\nLook at the specimen processing time to receipt, did the sample processing times improve over the first 100 days of the pandemic? Plot the median processing times of each day over the course of the pandemic and then compare the summary statistics of the first 50 vs the last 50 days",
+    "crumbs": [
+      "🎃ＥＸＥＲＣＩＳＥ＃４"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Exercise4.html#bonus---viral-load",
+    "href": "WebsiteCodes/Exercise4.html#bonus---viral-load",
+    "title": "Hands-on Exercise",
+    "section": "Bonus - Viral load",
+    "text": "Bonus - Viral load\nHigher viral loads are detected in less PCR cycles.\nWhat can you observe about the viral load of positive vs negative samples.\nDo you notice anything differences in viral load across ages in the positive samples?\nHint: Also split the data into two age groups and try using geom_boxplot()",
+    "crumbs": [
+      "🎃ＥＸＥＲＣＩＳＥ＃４"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Exercise2.html",
+    "href": "WebsiteCodes/Exercise2.html",
+    "title": "Hands-on Exercise: Basic Data Manipulation",
+    "section": "",
+    "text": "library(gapminder)",
+    "crumbs": [
+      "🎃ＥＸＥＲＣＩＳＥ＃２"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Exercise2.html#writing-data",
+    "href": "WebsiteCodes/Exercise2.html#writing-data",
+    "title": "Hands-on Exercise: Basic Data Manipulation",
+    "section": "Writing data",
+    "text": "Writing data\nWrite a data processing snippet to include only the data points collected after 1995 in Asian countries as a CSV file\nSeparate the gapminder data frame into 5 individual data frames, one for each continent. Store those 5 data frames as an RData file in the objects folder called continents.RData.",
+    "crumbs": [
+      "🎃ＥＸＥＲＣＩＳＥ＃２"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Exercise2.html#exploring-data-frames",
+    "href": "WebsiteCodes/Exercise2.html#exploring-data-frames",
+    "title": "Hands-on Exercise: Basic Data Manipulation",
+    "section": "Exploring data frames",
+    "text": "Exploring data frames\nFinish exploring the gapminder data frame and:\n\nFind the number of rows and the number of columns\n\nPrint the data type of each column\n\nExplain the meaning of everything that str(gapminder) prints\n\nIn which years has the GDP of Canada been larger than the average of all data points?\nFind the mean life expectancy of Switzerland before and after 2000\nYou discovered that all the entries from 2007 are actually from 2008. Create a copy of the full gapminder data frame in an object called gp. Then change the year column to correct the entries from 2007.\nBonus - Find the mean life expectancy and mean gdp per continent using the function tapply",
+    "crumbs": [
+      "🎃ＥＸＥＲＣＩＳＥ＃２"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/ConcludingRemarks.html#what-we-learned-today",
+    "href": "WebsiteCodes/ConcludingRemarks.html#what-we-learned-today",
+    "title": "Concluding Remarks",
+    "section": "1. What We Learned Today",
+    "text": "1. What We Learned Today\nWe have covered the foundational pillars of R programming for bioinformatics:\n\nThe Ecosystem: Understanding the difference between Base R, RStudio, CRAN, BioConductor, and GitHub.\nThe Basics: Mastering data types (vectors, factors, lists) and the “home base” of the Working Directory.\nData Wrangling: Using dplyr verbs and the Pipe (%&gt;%) to turn messy spreadsheets into clean tables without creating intermediate “clutter.”\nVisualization: Moving beyond basic plots to the layered “Grammar of Graphics” in ggplot2.\nReproducibility: Learning how to write robust functions and manage project scripts.",
+    "crumbs": [
+      "Concluding Remarks"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/ConcludingRemarks.html#whats-next",
+    "href": "WebsiteCodes/ConcludingRemarks.html#whats-next",
+    "title": "Concluding Remarks",
+    "section": "2. What’s Next?",
+    "text": "2. What’s Next?\nToday was about the mechanics of R. In the next stage, we move toward interpretation.\n\nStatistics in R Workshop (Part 2)\n\nData Wrangling: Advanced joining of datasets (merging clinical data with genomic counts).\nStatistical Analysis: Performing T-tests, ANOVA, and correlation studies.\nRegression: Building linear models to understand the relationship between variables.\nReporting: Using Quarto to create automated PDF or HTML reports for your PI.",
+    "crumbs": [
+      "Concluding Remarks"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/ConcludingRemarks.html#resources-for-continued-learning",
+    "href": "WebsiteCodes/ConcludingRemarks.html#resources-for-continued-learning",
+    "title": "Concluding Remarks",
+    "section": "3. Resources for Continued Learning",
+    "text": "3. Resources for Continued Learning\nAs you continue your R study, these resources will be your best friends:\n\nR for Data Science (2e)\nBioconductor Tutorials\nCheat Sheets\n\n\n4. Thank you for attending!",
+    "crumbs": [
+      "Concluding Remarks"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/13Graphics.html#graphics-with-base-r",
+    "href": "WebsiteCodes/13Graphics.html#graphics-with-base-r",
+    "title": "Generating Visual Outputs",
+    "section": "1. Graphics with Base R",
+    "text": "1. Graphics with Base R\nBase R is great for a “quick look” at your data. It is fast because it doesn’t require any extra libraries, but it can be difficult to customize once your plots get complex.\n\nSimple Histogram\n\nif (!require(\"gapminder\", quietly = TRUE))\n    install.packages(\"gapminder\")\nlibrary(gapminder)\n\nhist(gapminder$lifeExp, \n     xlab = \"Life expectancy\", \n     main = \"Histogram of Life Expectancy\", \n     col  = \"lightblue\")\n\n\n\n\n\n\n\n\n\n\nMulti-panel Plots with par()\nIf you want to see multiple variables at once (e.g., for Switzerland), you can use par(mfrow = c(rows, cols)) to divide your plotting window.\n\ndf_swiss &lt;- gapminder[gapminder$country == \"Switzerland\", ]\npar(mfrow = c(1, 3)) # 1 row, 3 columns\n\nplot(y = df_swiss$lifeExp, x = df_swiss$year, xlab = \"Years\", ylab = \"Life expectancy\", type = \"b\")\nplot(y = df_swiss$pop, x = df_swiss$year, xlab = \"Years\", ylab = \"Population size\", type = \"b\")\nplot(y = df_swiss$gdpPercap, x = df_swiss$year, xlab = \"Years\", ylab = \"GDP per capita\", type = \"b\")",
+    "crumbs": [
+      "𝐑 𝐁𝐀𝐒𝐈𝐂𝐒: Generating Visual Outputs",
+      "𝟭𝟯 Graphics"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/13Graphics.html#graphics-with-ggplot2",
+    "href": "WebsiteCodes/13Graphics.html#graphics-with-ggplot2",
+    "title": "Generating Visual Outputs",
+    "section": "2. Graphics with ggplot2",
+    "text": "2. Graphics with ggplot2\nggplot2 is based on the Grammar of Graphics. Instead of thinking about “plots,” we think about layers:\n\nData: The dataframe you are using.\nAesthetics (aes): Mapping data columns to visual properties (x, y, color, size).\nGeometries (geom): The visual marks (points, lines, bars).\n\n\nComparing Multiple Countries\n\nlibrary(ggplot2)\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\ndf_subset &lt;- gapminder %&gt;%\n      dplyr::filter(country %in% c(\"Switzerland\", \"Australia\", \"Zimbabwe\", \"India\"))\n      \nggplot(df_subset, aes(x = year, y = lifeExp, color = country)) +\n  geom_point() +\n  geom_line() +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\n\nThe “All-in-One” Pipeline\nOne of the best features of the Tidyverse is that you can pipe your data manipulation results directly into ggplot(). This avoids creating unnecessary intermediate objects in your environment.\n\ngapminder %&gt;%\n  dplyr::group_by(continent, year) %&gt;%\n  dplyr::summarize(mean_gdpPercap = mean(gdpPercap)) %&gt;%\n  ggplot(aes(x = year, y = mean_gdpPercap, color = continent)) +\n    geom_point() +\n    geom_line() +\n    labs(title = \"Mean GDP per Capita by Continent\", y = \"Mean GDP\")\n\n`summarise()` has regrouped the output.\nℹ Summaries were computed grouped by continent and year.\nℹ Output is grouped by continent.\nℹ Use `summarise(.groups = \"drop_last\")` to silence this message.\nℹ Use `summarise(.by = c(continent, year))` for per-operation grouping\n  (`?dplyr::dplyr_by`) instead.",
+    "crumbs": [
+      "𝐑 𝐁𝐀𝐒𝐈𝐂𝐒: Generating Visual Outputs",
+      "𝟭𝟯 Graphics"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/13Graphics.html#advanced-ggplot2-tricks",
+    "href": "WebsiteCodes/13Graphics.html#advanced-ggplot2-tricks",
+    "title": "Generating Visual Outputs",
+    "section": "3. Advanced ggplot2 Tricks",
+    "text": "3. Advanced ggplot2 Tricks\n\nData Format (Wide vs. Long)\nggplot2 almost always expects data in Long Format (one column for the category, one column for the value). If your data is “Wide” (e.g., each year is its own column), you must tidy it first.\n\n\nControlling Colors & Factors\nIf you want your legend to appear in a specific order (e.g., descending wealth), you must modify the Levels of your factor.\n\ngapminder %&gt;%\n  dplyr::group_by(continent, year) %&gt;%\n  dplyr::mutate(continent = factor(as.character(continent), \n                                   levels = c(\"Oceania\", \"Europe\", \"Americas\", \"Asia\", \"Africa\"))) %&gt;%\n  dplyr::summarize(mean_gdpPercap = mean(gdpPercap)) %&gt;%\n  ggplot(aes(x = year, y = mean_gdpPercap, color = continent)) +\n    geom_line(linewidth = 1) +\n    scale_color_viridis_d() # Uses a colorblind-friendly palette\n\n`summarise()` has regrouped the output.\nℹ Summaries were computed grouped by continent and year.\nℹ Output is grouped by continent.\nℹ Use `summarise(.groups = \"drop_last\")` to silence this message.\nℹ Use `summarise(.by = c(continent, year))` for per-operation grouping\n  (`?dplyr::dplyr_by`) instead.",
+    "crumbs": [
+      "𝐑 𝐁𝐀𝐒𝐈𝐂𝐒: Generating Visual Outputs",
+      "𝟭𝟯 Graphics"
+    ]
+  },
+  {
     "objectID": "WebsiteCodes/11AdvDataFrames.html#adding-columns-and-rows",
     "href": "WebsiteCodes/11AdvDataFrames.html#adding-columns-and-rows",
     "title": "Exploring Data Frames",
     "section": "1. Adding Columns and Rows",
-    "text": "1. Adding Columns and Rows\n\n1.1 Individually Adding Columns\nYou can add a new column by simply assigning values to a name that doesn’t exist yet using the $ operator or bracket [ , ] notation.\n\n\n\n\n\n\nImportant\n\n\n\nCrucial Rule: The new column must have the exact same number of rows as the existing data frame.\n\n\n\n# Dataset Preparation\n\nif (!require(\"gapminder\", quietly = TRUE))\n    install.packages(\"gapminder\")\nlibrary(gapminder)\n\naust &lt;- gapminder[gapminder$country == \"Australia\",]\n\n\n# Method A: Using the $ operator\n# Adding a random column for \"mean_children\"\nmean_children &lt;- sample(1:10, nrow(aust), replace = TRUE)\naust$mean_children &lt;- mean_children\n\n# Adding a calculated column (GDP = population * GDP per capita)\naust$GDP &lt;- aust$pop * aust$gdpPercap\n\nhead(aust)\n\n# A tibble: 6 × 8\n  country   continent  year lifeExp      pop gdpPercap mean_children         GDP\n  &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;         &lt;int&gt;       &lt;dbl&gt;\n1 Australia Oceania    1952    69.1  8691212    10040.             3     8.73e10\n2 Australia Oceania    1957    70.3  9712569    10950.             3     1.06e11\n3 Australia Oceania    1962    70.9 10794968    12217.             4     1.32e11\n4 Australia Oceania    1967    71.1 11872264    14526.             2     1.72e11\n5 Australia Oceania    1972    71.9 13177000    16789.             3     2.21e11\n6 Australia Oceania    1977    73.5 14074100    18334.             2     2.58e11\n\n\n\n# Method B: Using bracket notation\nmean_bikes &lt;- sample(1:4, nrow(aust), replace = TRUE)\naust[, \"mean_bikes\"] &lt;- mean_bikes\n\nhead(aust)\n\n# A tibble: 6 × 9\n  country   continent  year lifeExp      pop gdpPercap mean_children         GDP\n  &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;         &lt;int&gt;       &lt;dbl&gt;\n1 Australia Oceania    1952    69.1  8691212    10040.             3     8.73e10\n2 Australia Oceania    1957    70.3  9712569    10950.             3     1.06e11\n3 Australia Oceania    1962    70.9 10794968    12217.             4     1.32e11\n4 Australia Oceania    1967    71.1 11872264    14526.             2     1.72e11\n5 Australia Oceania    1972    71.9 13177000    16789.             3     2.21e11\n6 Australia Oceania    1977    73.5 14074100    18334.             2     2.58e11\n# ℹ 1 more variable: mean_bikes &lt;int&gt;\n\n\n\n\n1.2 Combining Data Frames by Columns (cbind)\nIf you have a whole table of new data, you can “staple” it to the side of your original data using cbind() (column bind).\n\n# Create a separate data frame with two new variables\ndf_new &lt;- data.frame(\n  mean_children = sample(1:10, nrow(aust), replace = TRUE),\n  mean_bikes = sample(1:4, nrow(aust), replace = TRUE)\n)\n\n# Combine them\naust &lt;- cbind(aust, df_new)\n\nhead(aust)\n\n    country continent year lifeExp      pop gdpPercap mean_children\n1 Australia   Oceania 1952   69.12  8691212  10039.60             3\n2 Australia   Oceania 1957   70.33  9712569  10949.65             3\n3 Australia   Oceania 1962   70.93 10794968  12217.23             4\n4 Australia   Oceania 1967   71.10 11872264  14526.12             2\n5 Australia   Oceania 1972   71.93 13177000  16788.63             3\n6 Australia   Oceania 1977   73.49 14074100  18334.20             2\n           GDP mean_bikes mean_children mean_bikes\n1  87256254102          1             6          2\n2 106349227169          2             8          3\n3 131884573002          1             6          3\n4 172457986742          1             7          4\n5 221223770658          4             2          2\n6 258037329175          3             7          2\n\n\n\n\n1.3 Adding Rows (rbind)\nAdding rows is slightly more complex because a row usually contains mixed data types (text, numbers, etc.).\n\n\n\n\n\n\nNote\n\n\n\nWhy use a list for a new row? A data frame is a list of vectors. A single row crosses those vectors, so it must be able to hold different types of data at once. A list is the perfect container for this.\n\n\n\naust &lt;- gapminder[gapminder$country == \"Australia\",]\n\n# Create a new row as a list\nnew_row &lt;- list(\n  \"country\" = \"Australia\",\n  \"continent\" = \"Oceania\",\n  \"year\" = 2022,\n  \"lifeExp\" = mean(aust$lifeExp),\n  \"pop\" = mean(aust$pop),\n  \"gdpPercap\" = mean(aust$gdpPercap)\n)\n\n# Append the row to the bottom\naust &lt;- rbind(aust, new_row)\n\ntail(aust)\n\n# A tibble: 6 × 6\n  country   continent  year lifeExp       pop gdpPercap\n  &lt;fct&gt;     &lt;fct&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;\n1 Australia Oceania    1987    76.3 16257249     21889.\n2 Australia Oceania    1992    77.6 17481977     23425.\n3 Australia Oceania    1997    78.8 18565243     26998.\n4 Australia Oceania    2002    80.4 19546792     30688.\n5 Australia Oceania    2007    81.2 20434176     34435.\n6 Australia Oceania    2022    74.7 14649312.    19981.",
+    "text": "1. Adding Columns and Rows\n\n1.1 Individually Adding Columns\nYou can add a new column by simply assigning values to a name that doesn’t exist yet using the $ operator or bracket [ , ] notation.\n\n\n\n\n\n\nImportant\n\n\n\nCrucial Rule: The new column must have the exact same number of rows as the existing data frame.\n\n\n\n# Dataset Preparation\n\nif (!require(\"gapminder\", quietly = TRUE))\n    install.packages(\"gapminder\")\nlibrary(gapminder)\n\naust &lt;- gapminder[gapminder$country == \"Australia\",]\n\n\n# Method A: Using the $ operator\n# Adding a random column for \"mean_children\"\nmean_children &lt;- sample(1:10, nrow(aust), replace = TRUE)\naust$mean_children &lt;- mean_children\n\n# Adding a calculated column (GDP = population * GDP per capita)\naust$GDP &lt;- aust$pop * aust$gdpPercap\n\nhead(aust)\n\n# A tibble: 6 × 8\n  country   continent  year lifeExp      pop gdpPercap mean_children         GDP\n  &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;         &lt;int&gt;       &lt;dbl&gt;\n1 Australia Oceania    1952    69.1  8691212    10040.             9     8.73e10\n2 Australia Oceania    1957    70.3  9712569    10950.             4     1.06e11\n3 Australia Oceania    1962    70.9 10794968    12217.             9     1.32e11\n4 Australia Oceania    1967    71.1 11872264    14526.             7     1.72e11\n5 Australia Oceania    1972    71.9 13177000    16789.             1     2.21e11\n6 Australia Oceania    1977    73.5 14074100    18334.             4     2.58e11\n\n\n\n# Method B: Using bracket notation\nmean_bikes &lt;- sample(1:4, nrow(aust), replace = TRUE)\naust[, \"mean_bikes\"] &lt;- mean_bikes\n\nhead(aust)\n\n# A tibble: 6 × 9\n  country   continent  year lifeExp      pop gdpPercap mean_children         GDP\n  &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;         &lt;int&gt;       &lt;dbl&gt;\n1 Australia Oceania    1952    69.1  8691212    10040.             9     8.73e10\n2 Australia Oceania    1957    70.3  9712569    10950.             4     1.06e11\n3 Australia Oceania    1962    70.9 10794968    12217.             9     1.32e11\n4 Australia Oceania    1967    71.1 11872264    14526.             7     1.72e11\n5 Australia Oceania    1972    71.9 13177000    16789.             1     2.21e11\n6 Australia Oceania    1977    73.5 14074100    18334.             4     2.58e11\n# ℹ 1 more variable: mean_bikes &lt;int&gt;\n\n\n\n\n1.2 Combining Data Frames by Columns (cbind)\nIf you have a whole table of new data, you can “staple” it to the side of your original data using cbind() (column bind).\n\n# Create a separate data frame with two new variables\ndf_new &lt;- data.frame(\n  mean_children = sample(1:10, nrow(aust), replace = TRUE),\n  mean_bikes = sample(1:4, nrow(aust), replace = TRUE)\n)\n\n# Combine them\naust &lt;- cbind(aust, df_new)\n\nhead(aust)\n\n    country continent year lifeExp      pop gdpPercap mean_children\n1 Australia   Oceania 1952   69.12  8691212  10039.60             9\n2 Australia   Oceania 1957   70.33  9712569  10949.65             4\n3 Australia   Oceania 1962   70.93 10794968  12217.23             9\n4 Australia   Oceania 1967   71.10 11872264  14526.12             7\n5 Australia   Oceania 1972   71.93 13177000  16788.63             1\n6 Australia   Oceania 1977   73.49 14074100  18334.20             4\n           GDP mean_bikes mean_children mean_bikes\n1  87256254102          4            10          2\n2 106349227169          1             6          1\n3 131884573002          1             9          3\n4 172457986742          3             4          4\n5 221223770658          2             1          2\n6 258037329175          2             3          1\n\n\n\n\n1.3 Adding Rows (rbind)\nAdding rows is slightly more complex because a row usually contains mixed data types (text, numbers, etc.).\n\n\n\n\n\n\nNote\n\n\n\nWhy use a list for a new row? A data frame is a list of vectors. A single row crosses those vectors, so it must be able to hold different types of data at once. A list is the perfect container for this.\n\n\n\naust &lt;- gapminder[gapminder$country == \"Australia\",]\n\n# Create a new row as a list\nnew_row &lt;- list(\n  \"country\" = \"Australia\",\n  \"continent\" = \"Oceania\",\n  \"year\" = 2022,\n  \"lifeExp\" = mean(aust$lifeExp),\n  \"pop\" = mean(aust$pop),\n  \"gdpPercap\" = mean(aust$gdpPercap)\n)\n\n# Append the row to the bottom\naust &lt;- rbind(aust, new_row)\n\ntail(aust)\n\n# A tibble: 6 × 6\n  country   continent  year lifeExp       pop gdpPercap\n  &lt;fct&gt;     &lt;fct&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;\n1 Australia Oceania    1987    76.3 16257249     21889.\n2 Australia Oceania    1992    77.6 17481977     23425.\n3 Australia Oceania    1997    78.8 18565243     26998.\n4 Australia Oceania    2002    80.4 19546792     30688.\n5 Australia Oceania    2007    81.2 20434176     34435.\n6 Australia Oceania    2022    74.7 14649312.    19981.",
     "crumbs": [
       "𝐑 𝐁𝐀𝐒𝐈𝐂𝐒: Data Manipulation",
       "𝟭𝟭 Exploring Data Frames"
@@ -671,11 +894,22 @@
     ]
   },
   {
+    "objectID": "WebsiteCodes/12Packages4Data.html#the-base-r-struggle-a-scenario",
+    "href": "WebsiteCodes/12Packages4Data.html#the-base-r-struggle-a-scenario",
+    "title": "Advanced Data Manipulation",
+    "section": "0. The “Base R” Struggle (A Scenario)",
+    "text": "0. The “Base R” Struggle (A Scenario)\nImagine you have data from an experiment with a Control group and an Experimental group. Each group has 3 males and 3 females. You need to calculate the mean for each unique combination (Sex + Treatment).\nThe “Old” Way (Base R): You have to manually subset the data for every single combination, creating new variables each time.\n\n# prepare demo dataset\nset.seed(228)\ndemo_data &lt;- data.frame(\n  \"Treatment\" = c(rep(\"ctrl\", 6), rep(\"experiment\", 6)),\n  \"Sex\" = c(rep(\"Male\", 3), rep(\"Female\", 3), rep(\"Male\", 3), rep(\"Female\", 3)),\n  \"Measurement\" = c(sample(100:300, 12))\n)\n\n# Calculating means manually\nCtrl_M &lt;- demo_data[which(demo_data$Treatment == \"ctrl\" & demo_data$Sex == \"Male\"), \"Measurement\"]\nmean(Ctrl_M)\n\n[1] 213.3333\n\nCtrl_F &lt;- demo_data[which(demo_data$Treatment == \"ctrl\" & demo_data$Sex == \"Female\"), \"Measurement\"]\nmean(Ctrl_F)\n\n[1] 149.3333\n\n# Now imagine doing this for 10 treatments and 3 timepoints... you would have 60 variables!\n\nThere are packages that provide functions to streamline common operations on tabular data and make the code look nicer and cleaner. These packages are part of a broader family called tidyverse, for more information you can visit https://www.tidyverse.org/.\nWe will cover 5 of the most commonly used functions and combine them using pipes (%&gt;%):\n1. select() - used to extract data\n2. filter() - to filter entries using logical vectors\n3. group_by() - to solve the split-apply-combine problem\n4. summarize() - to obtain summary statistics\n5. mutate() - to create new columns",
+    "crumbs": [
+      "𝐑 𝐁𝐀𝐒𝐈𝐂𝐒: Data Manipulation",
+      "𝟭𝟮\tUseful Packages for Data Manipulation"
+    ]
+  },
+  {
     "objectID": "WebsiteCodes/12Packages4Data.html#the-tidyverse-philosophy",
     "href": "WebsiteCodes/12Packages4Data.html#the-tidyverse-philosophy",
-    "title": "Advanced data manipulation",
+    "title": "Advanced Data Manipulation",
     "section": "1. The tidyverse Philosophy",
-    "text": "1. The tidyverse Philosophy\ndplyr is part of the tidyverse, a collection of R packages designed for data science. The goal is to provide a consistent way to handle data frames.\n\nThe Power of the Pipe (%&gt;%)\nThe pipe operator is the secret sauce of dplyr. It takes the output of one function and “pipes” it directly into the next.\n\nThink of it as the word “THEN”.\nInstead of nesting functions like head(select(df, year)), you write: df %&gt;% select(year) %&gt;% head()\n\n\nif (!require(\"gapminder\", quietly = TRUE))\n    install.packages(\"gapminder\")\nlibrary(gapminder)\n\nif (!require(\"dplyr\", quietly = TRUE))\n    install.packages(\"dplyr\")\nlibrary(dplyr)",
+    "text": "1. The tidyverse Philosophy\nTo solve this “variable explosion,” we use dplyr. It is part of the tidyverse, a collection of R packages that are designed for data science and share a common grammar. The goal is to provide a consistent way to handle data frames. Instead of creating 60 intermediate objects, we create one Pipeline.\n\nif (!require(\"gapminder\", quietly = TRUE))\n    install.packages(\"gapminder\")\nlibrary(gapminder)\n\nif (!require(\"dplyr\", quietly = TRUE))\n    install.packages(\"dplyr\")\nlibrary(dplyr)\n\n\nThe Power of the Pipe (%&gt;%)\nThe pipe operator is the secret sauce of dplyr. It takes the output of one function and “pipes” it directly into the next.\n\nThink of it as the word “THEN”.\n\n\nWhy use the pipe?\n\nReadability: Standard R code is nested like an onion: f(g(h(x))). You have to read from the inside out. With the pipe, you read from left to right (or top to bottom).\nNo “Intermediate Clutter”: You don’t have to save temp_data_1, temp_data_2, etc.\nEasy Debugging: You can comment out one line of the pipe to see where the data “breaks.”\n\n\n\n\nComparisons: The Pipe vs. The Nest\nThe Nest (Hard to read):\n\n# Hard to tell which argument belongs to which function\nset.seed(228)\ndemo_data &lt;- data.frame(\n  \"Treatment\" = c(rep(\"ctrl\", 6), rep(\"experiment\", 6)),\n  \"Sex\" = c(rep(\"Male\", 3), rep(\"Female\", 3), rep(\"Male\", 3), rep(\"Female\", 3)),\n  \"Measurement\" = c(sample(100:300, 12))\n)\n\nas.data.frame(summarise(dplyr::group_by(demo_data, Treatment, Sex), Mean = mean(Measurement)))\n\n`summarise()` has regrouped the output.\nℹ Summaries were computed grouped by Treatment and Sex.\nℹ Output is grouped by Treatment.\nℹ Use `summarise(.groups = \"drop_last\")` to silence this message.\nℹ Use `summarise(.by = c(Treatment, Sex))` for per-operation grouping\n  (`?dplyr::dplyr_by`) instead.\n\n\n   Treatment    Sex     Mean\n1       ctrl Female 149.3333\n2       ctrl   Male 213.3333\n3 experiment Female 167.0000\n4 experiment   Male 136.0000\n\n\nThe Pipe (Easy to read):\n\n# Step-by-step logic\ndemo_data %&gt;% \n  dplyr::group_by(Treatment, Sex) %&gt;% \n  summarise(\n    Mean = mean(Measurement),\n    SD   = sd(Measurement),\n    .groups  = \"drop\"\n  ) %&gt;% \n  as.data.frame()\n\n   Treatment    Sex     Mean       SD\n1       ctrl Female 149.3333 11.06044\n2       ctrl   Male 213.3333 60.45108\n3 experiment Female 167.0000 19.46792\n4 experiment   Male 136.0000 24.75884\n\n\n\n\n\n\n\n\nNote\n\n\n\n\nKeyboard Shortcut:\n\nWindows/Linux: Ctrl + Shift + M\nMac: Cmd + Shift + M\n\nFact: The pipe introduced in the magrittr package (2014) and popularized by dplyr (magrittr package was named after the artist René Magritte, famous for the “This is not a pipe” painting).\nModern R: Since R 4.1.0, there is a built-in pipe |&gt;. It works similarly but has a few more restrictions (like requiring parentheses after every function).",
     "crumbs": [
       "𝐑 𝐁𝐀𝐒𝐈𝐂𝐒: Data Manipulation",
       "𝟭𝟮\tUseful Packages for Data Manipulation"
@@ -684,9 +918,9 @@
   {
     "objectID": "WebsiteCodes/12Packages4Data.html#the-core-dplyr-verbs",
     "href": "WebsiteCodes/12Packages4Data.html#the-core-dplyr-verbs",
-    "title": "Advanced data manipulation",
+    "title": "Advanced Data Manipulation",
     "section": "2. The Core dplyr Verbs",
-    "text": "2. The Core dplyr Verbs\n\n2.1 select(): Picking Columns\nUse select() when you only want specific variables (columns) from your dataset.\n\n# Select specific columns\ngapminder %&gt;% \n  dplyr::select(year, country, gdpPercap) %&gt;% \n  head()\n## # A tibble: 6 × 3\n##    year country     gdpPercap\n##   &lt;int&gt; &lt;fct&gt;           &lt;dbl&gt;\n## 1  1952 Afghanistan      779.\n## 2  1957 Afghanistan      821.\n## 3  1962 Afghanistan      853.\n## 4  1967 Afghanistan      836.\n## 5  1972 Afghanistan      740.\n## 6  1977 Afghanistan      786.\n\n# Remove a column using the minus sign\ngapminder %&gt;% \n  dplyr::select(-continent) %&gt;% \n  head()\n## # A tibble: 6 × 5\n##   country      year lifeExp      pop gdpPercap\n##   &lt;fct&gt;       &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;\n## 1 Afghanistan  1952    28.8  8425333      779.\n## 2 Afghanistan  1957    30.3  9240934      821.\n## 3 Afghanistan  1962    32.0 10267083      853.\n## 4 Afghanistan  1967    34.0 11537966      836.\n## 5 Afghanistan  1972    36.1 13079460      740.\n## 6 Afghanistan  1977    38.4 14880372      786.\n\n\n\n2.2 filter(): Picking Rows\nUse filter() to find observations (rows) that meet a certain condition.\n\n# Include only European countries in the year 2007\ngapminder %&gt;% \n  dplyr::filter(continent == \"Europe\", year == 2007) %&gt;% \n  dplyr::select(country, lifeExp)\n## # A tibble: 30 × 2\n##    country                lifeExp\n##    &lt;fct&gt;                    &lt;dbl&gt;\n##  1 Albania                   76.4\n##  2 Austria                   79.8\n##  3 Belgium                   79.4\n##  4 Bosnia and Herzegovina    74.9\n##  5 Bulgaria                  73.0\n##  6 Croatia                   75.7\n##  7 Czech Republic            76.5\n##  8 Denmark                   78.3\n##  9 Finland                   79.3\n## 10 France                    80.7\n## # ℹ 20 more rows",
+    "text": "2. The Core dplyr Verbs\n\n2.1 select(): Picking Columns\nUse select() when you only want specific variables (columns) from your dataset.\n\n# Select specific columns\ngapminder %&gt;% \n  dplyr::select(year, country, gdpPercap) %&gt;% \n  head()\n## # A tibble: 6 × 3\n##    year country     gdpPercap\n##   &lt;int&gt; &lt;fct&gt;           &lt;dbl&gt;\n## 1  1952 Afghanistan      779.\n## 2  1957 Afghanistan      821.\n## 3  1962 Afghanistan      853.\n## 4  1967 Afghanistan      836.\n## 5  1972 Afghanistan      740.\n## 6  1977 Afghanistan      786.\n\n# Remove a column using the minus sign\ngapminder %&gt;% \n  dplyr::select(-continent) %&gt;% \n  head()\n## # A tibble: 6 × 5\n##   country      year lifeExp      pop gdpPercap\n##   &lt;fct&gt;       &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;\n## 1 Afghanistan  1952    28.8  8425333      779.\n## 2 Afghanistan  1957    30.3  9240934      821.\n## 3 Afghanistan  1962    32.0 10267083      853.\n## 4 Afghanistan  1967    34.0 11537966      836.\n## 5 Afghanistan  1972    36.1 13079460      740.\n## 6 Afghanistan  1977    38.4 14880372      786.\n\n\n\n\n\n\n\nNote\n\n\n\nanother way of coding:\n\ndplyr::select(.data = gapminder, \n              year, country, gdpPercap) %&gt;%\n  head()\n\n# A tibble: 6 × 3\n   year country     gdpPercap\n  &lt;int&gt; &lt;fct&gt;           &lt;dbl&gt;\n1  1952 Afghanistan      779.\n2  1957 Afghanistan      821.\n3  1962 Afghanistan      853.\n4  1967 Afghanistan      836.\n5  1972 Afghanistan      740.\n6  1977 Afghanistan      786.\n\ndplyr::select(.data = gapminder,\n              -continent) %&gt;%\n  head()\n\n# A tibble: 6 × 5\n  country      year lifeExp      pop gdpPercap\n  &lt;fct&gt;       &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;\n1 Afghanistan  1952    28.8  8425333      779.\n2 Afghanistan  1957    30.3  9240934      821.\n3 Afghanistan  1962    32.0 10267083      853.\n4 Afghanistan  1967    34.0 11537966      836.\n5 Afghanistan  1972    36.1 13079460      740.\n6 Afghanistan  1977    38.4 14880372      786.\n\n\n\n\n\n\n2.2 filter(): Picking Rows\nUse filter() to find observations (rows) that meet a certain condition.\n\n# Include only European countries in the year 2007\ngapminder %&gt;% \n  dplyr::filter(continent == \"Europe\", year == 2007) %&gt;% \n  dplyr::select(country, lifeExp)\n## # A tibble: 30 × 2\n##    country                lifeExp\n##    &lt;fct&gt;                    &lt;dbl&gt;\n##  1 Albania                   76.4\n##  2 Austria                   79.8\n##  3 Belgium                   79.4\n##  4 Bosnia and Herzegovina    74.9\n##  5 Bulgaria                  73.0\n##  6 Croatia                   75.7\n##  7 Czech Republic            76.5\n##  8 Denmark                   78.3\n##  9 Finland                   79.3\n## 10 France                    80.7\n## # ℹ 20 more rows",
     "crumbs": [
       "𝐑 𝐁𝐀𝐒𝐈𝐂𝐒: Data Manipulation",
       "𝟭𝟮\tUseful Packages for Data Manipulation"
@@ -695,7 +929,7 @@
   {
     "objectID": "WebsiteCodes/12Packages4Data.html#the-power-duo-group_by-and-summarize",
     "href": "WebsiteCodes/12Packages4Data.html#the-power-duo-group_by-and-summarize",
-    "title": "Advanced data manipulation",
+    "title": "Advanced Data Manipulation",
     "section": "3. The Power Duo: group_by() and summarize()",
     "text": "3. The Power Duo: group_by() and summarize()\nThis is the most common workflow in bioinformatics. You split the data into groups, apply a calculation, and combinethe results into a summary table.\n\n3.1 group_by()\nThis doesn’t change the data visually; it creates “hidden” groups that R remembers for the next step.\n\ngapminder %&gt;% dplyr::group_by(continent)\n## # A tibble: 1,704 × 6\n## # Groups:   continent [5]\n##    country     continent  year lifeExp      pop gdpPercap\n##    &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;\n##  1 Afghanistan Asia       1952    28.8  8425333      779.\n##  2 Afghanistan Asia       1957    30.3  9240934      821.\n##  3 Afghanistan Asia       1962    32.0 10267083      853.\n##  4 Afghanistan Asia       1967    34.0 11537966      836.\n##  5 Afghanistan Asia       1972    36.1 13079460      740.\n##  6 Afghanistan Asia       1977    38.4 14880372      786.\n##  7 Afghanistan Asia       1982    39.9 12881816      978.\n##  8 Afghanistan Asia       1987    40.8 13867957      852.\n##  9 Afghanistan Asia       1992    41.7 16317921      649.\n## 10 Afghanistan Asia       1997    41.8 22227415      635.\n## # ℹ 1,694 more rows\n\n\n\n3.2 summarize()\nThis “collapses” each group into a single row of statistics.\n\n# Calculate mean GDP and Standard Error for each continent\ngapminder %&gt;% \n  dplyr::group_by(continent) %&gt;% \n  dplyr::summarize(\n    mean_le = mean(lifeExp),\n    se_le = sd(lifeExp) / sqrt(dplyr::n()) # n() counts the number of observations\n  )\n## # A tibble: 5 × 3\n##   continent mean_le se_le\n##   &lt;fct&gt;       &lt;dbl&gt; &lt;dbl&gt;\n## 1 Africa       48.9 0.366\n## 2 Americas     64.7 0.540\n## 3 Asia         60.1 0.596\n## 4 Europe       71.9 0.286\n## 5 Oceania      74.3 0.775",
     "crumbs": [
@@ -706,7 +940,7 @@
   {
     "objectID": "WebsiteCodes/12Packages4Data.html#mutate-creating-new-variables",
     "href": "WebsiteCodes/12Packages4Data.html#mutate-creating-new-variables",
-    "title": "Advanced data manipulation",
+    "title": "Advanced Data Manipulation",
     "section": "4. mutate(): Creating New Variables",
     "text": "4. mutate(): Creating New Variables\nmutate() allows you to add new columns while keeping the old ones. It is perfect for calculations like unit conversions or normalization.\n\n# Create a new column for GDP in billions\ngapminder %&gt;% \n  dplyr::mutate(gdp_billion = gdpPercap * pop / 10^9) %&gt;% \n  head()\n## # A tibble: 6 × 7\n##   country     continent  year lifeExp      pop gdpPercap gdp_billion\n##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;       &lt;dbl&gt;\n## 1 Afghanistan Asia       1952    28.8  8425333      779.        6.57\n## 2 Afghanistan Asia       1957    30.3  9240934      821.        7.59\n## 3 Afghanistan Asia       1962    32.0 10267083      853.        8.76\n## 4 Afghanistan Asia       1967    34.0 11537966      836.        9.65\n## 5 Afghanistan Asia       1972    36.1 13079460      740.        9.68\n## 6 Afghanistan Asia       1977    38.4 14880372      786.       11.7",
     "crumbs": [
@@ -717,12 +951,104 @@
   {
     "objectID": "WebsiteCodes/12Packages4Data.html#putting-it-all-together",
     "href": "WebsiteCodes/12Packages4Data.html#putting-it-all-together",
-    "title": "Advanced data manipulation",
+    "title": "Advanced Data Manipulation",
     "section": "5. Putting It All Together",
-    "text": "5. Putting It All Together\nThe true beauty of dplyr is chaining everything into one clean pipeline.\n\n# A complete pipeline: Create a variable, group it, and summarize it\nsummary_table &lt;- gapminder %&gt;% \n  dplyr::mutate(gdp_billion = gdpPercap * pop / 10^9) %&gt;% \n  dplyr::group_by(continent, year) %&gt;% \n  dplyr::summarize(\n    mean_gdpPercap = mean(gdpPercap),\n    mean_pop = mean(pop),\n    mean_gdp_billion = mean(gdp_billion)\n  )\n## `summarise()` has regrouped the output.\n## ℹ Summaries were computed grouped by continent and year.\n## ℹ Output is grouped by continent.\n## ℹ Use `summarise(.groups = \"drop_last\")` to silence this message.\n## ℹ Use `summarise(.by = c(continent, year))` for per-operation grouping\n##   (`?dplyr::dplyr_by`) instead.\n\nhead(summary_table)\n## # A tibble: 6 × 5\n## # Groups:   continent [1]\n##   continent  year mean_gdpPercap mean_pop mean_gdp_billion\n##   &lt;fct&gt;     &lt;int&gt;          &lt;dbl&gt;    &lt;dbl&gt;            &lt;dbl&gt;\n## 1 Africa     1952          1253. 4570010.             5.99\n## 2 Africa     1957          1385. 5093033.             7.36\n## 3 Africa     1962          1598. 5702247.             8.78\n## 4 Africa     1967          2050. 6447875.            11.4 \n## 5 Africa     1972          2340. 7305376.            15.1 \n## 6 Africa     1977          2586. 8328097.            18.7\n\n\nPro-Tip: Why use dplyr::?\nYou’ll notice I used dplyr::select() instead of just select(). As we discussed in the “Functions” module, many packages have a filter or select function. Being explicit ensures that your code never breaks, even if you load other libraries later.",
+    "text": "5. Putting It All Together\nThe true beauty of dplyr is chaining everything into one clean pipeline.\n\n# A complete pipeline: Create a variable, group it, and summarize it\nsummary_table &lt;- gapminder %&gt;% \n  dplyr::mutate(gdp_billion = gdpPercap * pop / 10^9) %&gt;% \n  dplyr::group_by(continent, year) %&gt;% \n  dplyr::summarize(\n    mean_gdpPercap = mean(gdpPercap),\n    mean_pop = mean(pop),\n    mean_gdp_billion = mean(gdp_billion)\n  )\n## `summarise()` has regrouped the output.\n## ℹ Summaries were computed grouped by continent and year.\n## ℹ Output is grouped by continent.\n## ℹ Use `summarise(.groups = \"drop_last\")` to silence this message.\n## ℹ Use `summarise(.by = c(continent, year))` for per-operation grouping\n##   (`?dplyr::dplyr_by`) instead.\n\nhead(summary_table)\n## # A tibble: 6 × 5\n## # Groups:   continent [1]\n##   continent  year mean_gdpPercap mean_pop mean_gdp_billion\n##   &lt;fct&gt;     &lt;int&gt;          &lt;dbl&gt;    &lt;dbl&gt;            &lt;dbl&gt;\n## 1 Africa     1952          1253. 4570010.             5.99\n## 2 Africa     1957          1385. 5093033.             7.36\n## 3 Africa     1962          1598. 5702247.             8.78\n## 4 Africa     1967          2050. 6447875.            11.4 \n## 5 Africa     1972          2340. 7305376.            15.1 \n## 6 Africa     1977          2586. 8328097.            18.7\n\n\n\n\n\n\n\nNotePro-Tip: Why use dplyr::?\n\n\n\nYou’ll notice I used dplyr::select() instead of just select(). As we discussed in the “Functions” module, many packages have a filter or select function. Being explicit ensures that your code never breaks, even if you load other libraries later.",
     "crumbs": [
       "𝐑 𝐁𝐀𝐒𝐈𝐂𝐒: Data Manipulation",
       "𝟭𝟮\tUseful Packages for Data Manipulation"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/14Software.html#good-coding-practices",
+    "href": "WebsiteCodes/14Software.html#good-coding-practices",
+    "title": "Software Development Concepts",
+    "section": "1. Good Coding Practices",
+    "text": "1. Good Coding Practices\n\n1.1 Script Structure\nA script should read like a story. Organize it so a colleague (or “Future You”) can understand the setup before the action.\n\nSectioning: Use comments (e.g., #### SECTION NAME ####) to create a map of your script.\nThe “Head” of the Script: Always load your libraries at the top. This acts as a “Required Hardware” list for R.\nFunction Management: Keep your main script clean. If you have many custom functions, save them in a file called utils.R or functions.R and bring them in using source(\"functions.R\").\n\n\n\n1.2 Writing Robust Functions\nIn bioinformatics, naming and documentation are vital to avoid mixing up your genomic variables.\n\nNaming Conventions (PascalCase)\nUse PascalCase (Capitalizing each word) for functions to distinguish them from standard R variables.\n\n# Good: Stands out as a custom tool\nCalculateFoldChange &lt;- function(ctrl, exp) { ... }\n\n# Bad: Looks like a generic variable\nfoldchange &lt;- function(ctrl, exp) { ... }\n\n\n\nExplicit Returns\nWhile R automatically returns the last line, being explicit makes your code safer and easier to debug.\n\n# Good: Explicitly states what is being handed back\nAddValues &lt;- function(x, y) {\n  return(x + y)\n}\n\n\n\nInternal Documentation\nAlways include a “Receipt” at the top of your function explaining what it needs and what it gives back.\n\nAddValues &lt;- function(x, y) {\n  # Description: Adds two numeric values for gene expression normalization\n  # Input: x (numeric), y (numeric)\n  # Output: numeric sum\n  \n  return(x + y)\n}\n\n\n\n\n1.3 Documentation and Testing\nAs your McGill research projects grow into potential publications, you may want to use professional tools:\n\nroxygen2: Allows you to write “Help Files” (like the ones you see when typing ?sum) directly in your script.\ntestthat: A framework for “Unit Testing.” It automatically checks if your functions still work correctly after you make changes to your code.\n\n\n\n1.4 External Packages & Namespacing\nLoading a library is like opening a whole toolbox. If you only need one hammer, don’t bring the whole box.\n\nThe “Rule of Two”: If you only use 1 or 2 functions from a package, don’t use library(). Use the Namespaceinstead.\nNamespacing: This prevents “Function Masking” (when two packages have a function with the same name).\n\n\n# Good: Explicit and avoids conflicts\npurrr::map()\n\n# Bad: Might conflict with 'map' from the 'maps' package\nmap()",
+    "crumbs": [
+      "𝐑 𝐁𝐀𝐒𝐈𝐂𝐒: Generating Visual Outputs",
+      "𝟭𝟰 Software Development Concepts"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/14Software.html#debugging-and-troubleshooting",
+    "href": "WebsiteCodes/14Software.html#debugging-and-troubleshooting",
+    "title": "Software Development Concepts",
+    "section": "2. Debugging and Troubleshooting",
+    "text": "2. Debugging and Troubleshooting\nEvery bioinformatician gets errors. The difference between a beginner and a pro is how they react to them.\n\nThe “Minimal Reproducible Example” (Reprex): Try to recreate the error using a tiny, fake dataset (like df &lt;- data.frame(a=1:5)). If the error disappears, the problem is with your data. If the error stays, the problem is with your logic.\nThe “Google” Rule: Copy the last line of the error message.\n\n\n\n\n\n\nTip\n\n\n\nIf the error involves a specific package, include the package name in your search (e.g., \"Error in .External2() unable to start data viewer ggplot2\").\n\n\nCheck the “State”: Use sessionInfo() to see if your package versions are causing the conflict.",
+    "crumbs": [
+      "𝐑 𝐁𝐀𝐒𝐈𝐂𝐒: Generating Visual Outputs",
+      "𝟭𝟰 Software Development Concepts"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Exercise1.html#atomic-classes",
+    "href": "WebsiteCodes/Exercise1.html#atomic-classes",
+    "title": "Hands-on Exercise: Data Types",
+    "section": "Atomic Classes",
+    "text": "Atomic Classes\n\nWrite a piece of code that stores a number in a variable and then check if it is greater than 5. Try to use comments!\nBonus: Is there a way to store the result after checking the number?",
+    "crumbs": [
+      "🎃ＥＸＥＲＣＩＳＥ＃１"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Exercise1.html#vectors",
+    "href": "WebsiteCodes/Exercise1.html#vectors",
+    "title": "Hands-on Exercise: Data Types",
+    "section": "Vectors",
+    "text": "Vectors\nMake a vector with the numbers 1 through 26. Multiply the vector by 2, and give the resulting vector names A through Z (hint: there is a built in vector called LETTERS).",
+    "crumbs": [
+      "🎃ＥＸＥＲＣＩＳＥ＃１"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Exercise1.html#matrices",
+    "href": "WebsiteCodes/Exercise1.html#matrices",
+    "title": "Hands-on Exercise: Data Types",
+    "section": "Matrices",
+    "text": "Matrices\nMake a matrix with the numbers 1:50, with 5 columns and 10 rows. Did the matrix function fill your matrix by column, or by row, as its default behavior? Once you have figured it out, try to change the default. (hint: read the documentation for matrix)\nBonus: Which of the following commands was used to generate the matrix below?\n\nmatrix(c(4, 1, 9, 5, 10, 7), nrow = 3)\nmatrix(c(4, 9, 10, 1, 5, 7), ncol = 2, byrow = TRUE)\nmatrix(c(4, 9, 10, 1, 5, 7), nrow = 2)\nmatrix(c(4, 1, 9, 5, 10, 7), ncol = 2, byrow = TRUE)",
+    "crumbs": [
+      "🎃ＥＸＥＲＣＩＳＥ＃１"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Exercise1.html#lists",
+    "href": "WebsiteCodes/Exercise1.html#lists",
+    "title": "Hands-on Exercise: Data Types",
+    "section": "Lists",
+    "text": "Lists\nCreate a list of length two containing a character vector for each of the data sections: (1) Data types and (2) Data structures. Populate each character vector with the names of the data types and data structures, respectively.",
+    "crumbs": [
+      "🎃ＥＸＥＲＣＩＳＥ＃１"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Exercise1.html#data-frames",
+    "href": "WebsiteCodes/Exercise1.html#data-frames",
+    "title": "Hands-on Exercise: Data Types",
+    "section": "Data frames",
+    "text": "Data frames\nThere are several subtly different ways to call variables, observations and elements from data frames. Try them all and discuss with your team what they return. (Hint, use the function typeof())\n\niris[1]\niris[[1]]\niris$Species\niris[\"Species\"]\niris[1,1]\niris[,1]\niris[1,]",
+    "crumbs": [
+      "🎃ＥＸＥＲＣＩＳＥ＃１"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Exercise1.html#coercion",
+    "href": "WebsiteCodes/Exercise1.html#coercion",
+    "title": "Hands-on Exercise: Data Types",
+    "section": "Coercion",
+    "text": "Coercion\nTake the list you created in 3 and coerce it into a data frame. Then change the names of the columns to “dataTypes” and “dataStructures”",
+    "crumbs": [
+      "🎃ＥＸＥＲＣＩＳＥ＃１"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Exercise3.html",
+    "href": "WebsiteCodes/Exercise3.html",
+    "title": "Hands-on Exercise: Advance Data Manipulation",
+    "section": "",
+    "text": "suppressPackageStartupMessages(library(gapminder))\nsuppressPackageStartupMessages(library(dplyr))\n\nWrite one command ( can span multiple lines) using pipes that will output a data frame that has only the columns lifeExp, country and year for the records before the year 2000 from African countries, but not for other Continents.\nCalculate the average life expectancy per country. Which country has the longest average life expectancy and which one the shortest average life expectancy?\nIn the previous hands-on you discovered that all the entries from 2007 are actually from 2008. Write a command to edit the data accordingly using pipes. In the same command filter only the entries from 2008 to verify the change.",
+    "crumbs": [
+      "🎃ＥＸＥＲＣＩＳＥ＃３"
     ]
   },
   {
@@ -823,6 +1149,76 @@
     "text": "4. [HANDS-ON ACTIVITY] Use Help in RStudio\n\n\n\n\n\n\nNote\n\n\n\nR offers some good resources to help you learn about its functions. For example, if you put a question mark before a function name, on the lower right quadrant of RStudio some help will pop up.\n\n\n\n\nType ?sqrt in your script.\n\n\n\n?sqrt\n\n\n\nThen, help will pop up on the bottom right hand quadrant of RStudio.\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nThese give documentation about how to use the function, what arguments it takes, and some example code. Example code might be a helpful page to start with.\n\n\n\n\nType ??read_excel.\n\n\n\n??read_excel\n\n\n\n\n\n\n\nNote\n\n\n\nYou can also precede a function name with two question marks ?? to search all of your installed packages for it.\nThis is useful if you know there’s some sort of R function but you don’t remember what package it’s in. So if you get some code with the function read-excel in it but you forgot to load the readxl package, you can search for it using this double question mark and it’ll tell you which one’s to load.",
     "crumbs": [
       "Get Acquainted with R and RStudio"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Solutions1.html#atomic-classes",
+    "href": "WebsiteCodes/Solutions1.html#atomic-classes",
+    "title": "Solutions: Data Types",
+    "section": "Atomic Classes",
+    "text": "Atomic Classes\n\nWrite a piece of code that stores a number in a variable and then check if it is greater than 5. Try to use comments!\nBonus: Is there a way to store the result after checking the number?\n\n\nx &lt;- 10\nx &gt; 5\n\n[1] TRUE\n\n#Bonus\ny &lt;- x &gt; 5\n\nprint(y)\n\n[1] TRUE",
+    "crumbs": [
+      "👍ＳＯＬＵＴＩＯＮＳ＃１"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Solutions1.html#vectors",
+    "href": "WebsiteCodes/Solutions1.html#vectors",
+    "title": "Solutions: Data Types",
+    "section": "Vectors",
+    "text": "Vectors\nMake a vector with the numbers 1 through 26. Multiply the vector by 2, and give the resulting vector names A through Z (hint: there is a built in vector called LETTERS).\n\nx &lt;- 1:26\nx &lt;- x * 2\nnames(x) &lt;- LETTERS",
+    "crumbs": [
+      "👍ＳＯＬＵＴＩＯＮＳ＃１"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Solutions1.html#matrices",
+    "href": "WebsiteCodes/Solutions1.html#matrices",
+    "title": "Solutions: Data Types",
+    "section": "Matrices",
+    "text": "Matrices\nMake a matrix with the numbers 1:50, with 5 columns and 10 rows. Did the matrix function fill your matrix by column, or by row, as its default behavior? Once you have figured it out, try to change the default. (hint: read the documentation for matrix)\n\n# By default the matrix is filled by columns, we can change this behavior using byrow=TRUE\nm&lt;-matrix(1:50,ncol = 5,nrow = 10,byrow = T)\n\nBonus: Which of the following commands was used to generate the matrix below?\n\nmatrix(c(4, 1, 9, 5, 10, 7), nrow = 3)\nmatrix(c(4, 9, 10, 1, 5, 7), ncol = 2, byrow = TRUE)\nmatrix(c(4, 9, 10, 1, 5, 7), nrow = 2)\nmatrix(c(4, 1, 9, 5, 10, 7), ncol = 2, byrow = TRUE)\n\n\nmatrix(c(4, 1, 9, 5, 10, 7), ncol = 2, byrow = TRUE)\n\n     [,1] [,2]\n[1,]    4    1\n[2,]    9    5\n[3,]   10    7",
+    "crumbs": [
+      "👍ＳＯＬＵＴＩＯＮＳ＃１"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Solutions1.html#lists",
+    "href": "WebsiteCodes/Solutions1.html#lists",
+    "title": "Solutions: Data Types",
+    "section": "Lists",
+    "text": "Lists\nCreate a list of length two containing a character vector for each of the data sections: (1) Data types and (2) Data structures. Populate each character vector with the names of the data types and data structures, respectively.\n\ndt &lt;- c('double', 'complex', 'integer', 'character', 'logical')\nds &lt;- c('data.frame', 'vector', 'factor', 'list', 'matrix')\ndata.sections &lt;- list(dt, ds)",
+    "crumbs": [
+      "👍ＳＯＬＵＴＩＯＮＳ＃１"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Solutions1.html#data-frames",
+    "href": "WebsiteCodes/Solutions1.html#data-frames",
+    "title": "Solutions: Data Types",
+    "section": "Data frames",
+    "text": "Data frames\nThere are several subtly different ways to call variables, observations and elements from data frames. Try them all and discuss with your team what they return. (Hint, use the function typeof())\n\niris[1]\niris[[1]]\niris$Species\niris[\"Species\"]\niris[1,1]\niris[,1]\niris[1,]\n\n\n# The single brace [1] returns the first slice of the list, as another list. In this case it is the first column of the data frame.\niris[1]\n# The double brace [[1]] returns the contents of the list item. In this case it is the contents of the first column, a vector of type factor.\niris[[1]]\n# This example uses the $ character to address items by name. Species is a vector of type factor.\niris$Species\n# A single brace [\"Species\"] instead of the index number with the column name will also return a list like in the first example\niris[\"Species\"]\n# First element of first row and first column. The returned element is an integer\niris[1,1]\n# First column. Returns a vector\niris[,1]\n# First row. Returns a list with all the values in the first row.\niris[1,]",
+    "crumbs": [
+      "👍ＳＯＬＵＴＩＯＮＳ＃１"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Solutions1.html#coercion",
+    "href": "WebsiteCodes/Solutions1.html#coercion",
+    "title": "Solutions: Data Types",
+    "section": "Coercion",
+    "text": "Coercion\nTake the list you created in 3 and coerce it into a data frame. Then change the names of the columns to “dataTypes” and “dataStructures”\n\ndf&lt;-as.data.frame(data.sections)\ncolnames(df)&lt;-c(\"dataTypes\",\"dataStructures\")",
+    "crumbs": [
+      "👍ＳＯＬＵＴＩＯＮＳ＃１"
+    ]
+  },
+  {
+    "objectID": "WebsiteCodes/Solutions3.html",
+    "href": "WebsiteCodes/Solutions3.html",
+    "title": "Solutions: Advance Data Manipulation",
+    "section": "",
+    "text": "suppressPackageStartupMessages(library(gapminder))\nsuppressPackageStartupMessages(library(dplyr))\n\nWrite one command ( can span multiple lines) using pipes that will output a data frame that has only the columns lifeExp, country and year for the records before the year 2000 from African countries, but not for other Continents.\n\ntidy_africa &lt;- gapminder %&gt;%\n                dplyr::filter(continent == \"Africa\") %&gt;%\n                dplyr::select(year, country, lifeExp)\nhead(tidy_africa)\n\n# A tibble: 6 × 3\n   year country lifeExp\n  &lt;int&gt; &lt;fct&gt;     &lt;dbl&gt;\n1  1952 Algeria    43.1\n2  1957 Algeria    45.7\n3  1962 Algeria    48.3\n4  1967 Algeria    51.4\n5  1972 Algeria    54.5\n6  1977 Algeria    58.0\n\n\nCalculate the average life expectancy per country. Which country has the longest average life expectancy and which one the shortest average life expectancy?\n\ngapminder %&gt;%\n   dplyr::group_by(country) %&gt;%\n   dplyr::summarize(mean_lifeExp = mean(lifeExp)) %&gt;%\n   dplyr::filter(mean_lifeExp == min(mean_lifeExp) | mean_lifeExp == max(mean_lifeExp))\n\n# A tibble: 2 × 2\n  country      mean_lifeExp\n  &lt;fct&gt;               &lt;dbl&gt;\n1 Iceland              76.5\n2 Sierra Leone         36.8\n\n\nIn the previous hands-on you discovered that all the entries from 2007 are actually from 2008. Write a command to edit the data accordingly using pipes. In the same command filter only the entries from 2008 to verify the change.\n\ngapminder %&gt;%\n  dplyr::mutate(year = ifelse(year==2007,2008,year)) %&gt;%\n  dplyr::filter(year==2008) %&gt;%\n  head()\n\n# A tibble: 6 × 6\n  country     continent  year lifeExp      pop gdpPercap\n  &lt;fct&gt;       &lt;fct&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;\n1 Afghanistan Asia       2008    43.8 31889923      975.\n2 Albania     Europe     2008    76.4  3600523     5937.\n3 Algeria     Africa     2008    72.3 33333216     6223.\n4 Angola      Africa     2008    42.7 12420476     4797.\n5 Argentina   Americas   2008    75.3 40301927    12779.\n6 Australia   Oceania    2008    81.2 20434176    34435.",
+    "crumbs": [
+      "👍ＳＯＬＵＴＩＯＮＳ＃３"
     ]
   },
   {

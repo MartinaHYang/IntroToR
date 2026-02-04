@@ -8,7 +8,7 @@
 
 <meta name="description" content="Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie.">
 
-<title>Solutions – Intro To R</title>
+<title>Solutions: Basic Data Manipulation – Intro To R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -83,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../WebsiteCodes/Solutions2.html">👍ＳＯＬＵＴＩＯＮＳ ＃２</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../WebsiteCodes/Solutions2.html">👍ＳＯＬＵＴＩＯＮＳ＃２</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -199,13 +234,13 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../WebsiteCodes/Exercise1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ ＃１</span></a>
+ <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ＃１</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../WebsiteCodes/Solutions1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ ＃１</span></a>
+ <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ＃１</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -287,25 +322,25 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../WebsiteCodes/Exercise2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ ＃２</span></a>
+ <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ＃２</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../WebsiteCodes/Solutions2.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ ＃２</span></a>
+ <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ＃２</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../WebsiteCodes/Exercise3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ ＃３</span></a>
+ <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ＃３</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../WebsiteCodes/Solutions3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ ＃３</span></a>
+ <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ＃３</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -331,8 +366,8 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../WebsiteCodes/14Knitr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">𝟭𝟰 Reports with Knitr</span></a>
+  <a href="../WebsiteCodes/14Software.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟭𝟰 Software Development Concepts</span></a>
   </div>
 </li>
       </ul>
@@ -340,13 +375,13 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../WebsiteCodes/Exercise4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ ＃４</span></a>
+ <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ＃４</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../WebsiteCodes/Solutions4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ ＃４</span></a>
+ <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ＃４</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -360,15 +395,22 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#writing-data" id="toc-writing-data" class="nav-link active" data-scroll-target="#writing-data">Writing data</a></li>
+  <li><a href="#exploring-data-frames" id="toc-exploring-data-frames" class="nav-link" data-scroll-target="#exploring-data-frames">Exploring data frames</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/MartinaHYang/IntroToR/edit/main/WebsiteCodes/Solutions2.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MartinaHYang/IntroToR/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Solutions</h1>
+<h1 class="title">Solutions: Basic Data Manipulation</h1>
 </div>
 
 <div>
@@ -391,8 +433,81 @@ ul.task-list li input[type="checkbox"] {
 
 
 <hr>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="writing-data" class="level2">
+<h2 class="anchored" data-anchor-id="writing-data">Writing data</h2>
+<p>Write a data processing snippet to include only the data points collected after 1995 in Asian countries as a CSV file</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>asia<span class="ot">&lt;-</span>gapminder[gapminder<span class="sc">$</span>year <span class="sc">&gt;</span> <span class="dv">1995</span> <span class="sc">&amp;</span> gapminder<span class="sc">$</span>continent<span class="sc">==</span><span class="st">"Asia"</span>, ]</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(asia,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">file =</span> <span class="st">"../data/gapminder_after1995_asia.csv"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sep =</span> <span class="st">","</span>, </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">quote =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Separate the <code>gapminder</code> data frame into 5 individual data frames, one for each continent. Store those 5 data frames as an <code>RData</code> file in the <code>objects</code> folder called <code>continents.RData</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>asia<span class="ot">&lt;-</span>gapminder[gapminder<span class="sc">$</span>continent<span class="sc">==</span><span class="st">"Asia"</span>, ]</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>africa<span class="ot">&lt;-</span>gapminder[gapminder<span class="sc">$</span>continent<span class="sc">==</span><span class="st">"Africa"</span>, ]</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>oceania<span class="ot">&lt;-</span>gapminder[gapminder<span class="sc">$</span>continent<span class="sc">==</span><span class="st">"Oceania"</span>, ]</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>europe<span class="ot">&lt;-</span>gapminder[gapminder<span class="sc">$</span>continent<span class="sc">==</span><span class="st">"Europe"</span>, ]</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>americas<span class="ot">&lt;-</span>gapminder[gapminder<span class="sc">$</span>continent<span class="sc">==</span><span class="st">"Americas"</span>, ]</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(asia,africa,oceania,europe,americas,<span class="at">file=</span><span class="st">"../data/continents.RData"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="exploring-data-frames" class="level2">
+<h2 class="anchored" data-anchor-id="exploring-data-frames">Exploring data frames</h2>
+<p>Finish exploring the <code>gapminder</code> data frame and:</p>
+<ul>
+<li>Find the number of rows and the number of columns<br>
+</li>
+<li>Print the data type of each column<br>
+</li>
+<li>Explain the meaning of everything that <code>str(gapminder)</code> prints</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(gapminder)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(gapminder<span class="sc">$</span>country)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(gapminder<span class="sc">$</span>continent)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(gapminder<span class="sc">$</span>year)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(gapminder<span class="sc">$</span>lifeExp)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(gapminder<span class="sc">$</span>pop)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(gapminder<span class="sc">$</span>gdpPercap)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(gapminder)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>In which years has the GDP of Canada been larger than the average of all data points?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>canada<span class="ot">&lt;-</span>gapminder[gapminder<span class="sc">$</span>country<span class="sc">==</span><span class="st">"Canada"</span>,]</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>mgdp<span class="ot">&lt;-</span><span class="fu">mean</span>(canada<span class="sc">$</span>gdpPercap)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>canada[canada<span class="sc">$</span>gdpPercap<span class="sc">&gt;</span>mgdp,<span class="st">"year"</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Find the mean life expectancy of Switzerland before and after 2000</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>swiss<span class="ot">&lt;-</span>gapminder[gapminder<span class="sc">$</span>country<span class="sc">==</span><span class="st">"Switzerland"</span>,]</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(swiss[swiss<span class="sc">$</span>year<span class="sc">&lt;</span><span class="dv">2000</span>,]<span class="sc">$</span>lifeExp) <span class="co"># Before</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(swiss[swiss<span class="sc">$</span>year<span class="sc">&gt;</span><span class="dv">2000</span>,]<span class="sc">$</span>lifeExp) <span class="co"># After</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>You discovered that all the entries from 2007 are actually from 2008. Create a copy of the full <code>gapminder</code> data frame in an object called <code>gp</code>. Then change the year column to correct the entries from 2007.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>gp<span class="ot">&lt;-</span>gapminder</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>gp[gp<span class="sc">$</span>year<span class="sc">==</span><span class="dv">2007</span>,<span class="st">"year"</span>]<span class="ot">&lt;-</span><span class="dv">2008</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>gp[gp<span class="sc">$</span>year<span class="sc">==</span><span class="dv">2008</span>,]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Bonus -</strong> Find the mean life expectancy and mean gdp per continent using the function <code>tapply</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(gapminder<span class="sc">$</span>lifeExp,gapminder<span class="sc">$</span>continent,mean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tapply</span>(gapminder<span class="sc">$</span>lifeExp,gapminder<span class="sc">$</span>continent,mean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -797,13 +912,13 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../WebsiteCodes/Exercise2.html" class="pagination-link" aria-label="🎃ＥＸＥＲＣＩＳＥ ＃２">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">🎃ＥＸＥＲＣＩＳＥ ＃２</span>
+      <a href="../WebsiteCodes/Exercise2.html" class="pagination-link" aria-label="🎃ＥＸＥＲＣＩＳＥ＃２">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">🎃ＥＸＥＲＣＩＳＥ＃２</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../WebsiteCodes/Exercise3.html" class="pagination-link" aria-label="🎃ＥＸＥＲＣＩＳＥ ＃３">
-        <span class="nav-page-text">🎃ＥＸＥＲＣＩＳＥ ＃３</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../WebsiteCodes/Exercise3.html" class="pagination-link" aria-label="🎃ＥＸＥＲＣＩＳＥ＃３">
+        <span class="nav-page-text">🎃ＥＸＥＲＣＩＳＥ＃３</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -815,7 +930,7 @@ ul.task-list li input[type="checkbox"] {
 </div>   
     <div class="nav-footer-center">
 <p>Workshop created as part of the McGill Initiative in Computational Medicine.</p>
-<div class="toc-actions"><ul><li><a href="https://github.com/MartinaHYang/IntroToR/edit/main/WebsiteCodes/Solutions2.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MartinaHYang/IntroToR/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/MartinaHYang/IntroToR/edit/main/WebsiteCodes/Solutions2.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MartinaHYang/IntroToR/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
 </div>

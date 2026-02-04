@@ -8,7 +8,7 @@
 
 <meta name="description" content="Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie.">
 
-<title>Solutions – Intro To R</title>
+<title>Solutions: Medical Data – Intro To R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -83,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../WebsiteCodes/Solutions4.html">👍ＳＯＬＵＴＩＯＮＳ ＃４</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../WebsiteCodes/Solutions4.html">👍ＳＯＬＵＴＩＯＮＳ＃４</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -199,13 +234,13 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../WebsiteCodes/Exercise1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ ＃１</span></a>
+ <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ＃１</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../WebsiteCodes/Solutions1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ ＃１</span></a>
+ <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ＃１</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -287,25 +322,25 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../WebsiteCodes/Exercise2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ ＃２</span></a>
+ <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ＃２</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../WebsiteCodes/Solutions2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ ＃２</span></a>
+ <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ＃２</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../WebsiteCodes/Exercise3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ ＃３</span></a>
+ <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ＃３</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../WebsiteCodes/Solutions3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ ＃３</span></a>
+ <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ＃３</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -331,8 +366,8 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../WebsiteCodes/14Knitr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">𝟭𝟰 Reports with Knitr</span></a>
+  <a href="../WebsiteCodes/14Software.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">𝟭𝟰 Software Development Concepts</span></a>
   </div>
 </li>
       </ul>
@@ -340,13 +375,13 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../WebsiteCodes/Exercise4.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ ＃４</span></a>
+ <span class="menu-text">🎃ＥＸＥＲＣＩＳＥ＃４</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../WebsiteCodes/Solutions4.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ ＃４</span></a>
+ <span class="menu-text">👍ＳＯＬＵＴＩＯＮＳ＃４</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -360,15 +395,33 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#clinics-included" id="toc-clinics-included" class="nav-link active" data-scroll-target="#clinics-included">Clinics included</a>
+  <ul class="collapse">
+  <li><a href="#number-of-clinics" id="toc-number-of-clinics" class="nav-link" data-scroll-target="#number-of-clinics">Number of clinics</a></li>
+  <li><a href="#number-of-valid-tests" id="toc-number-of-valid-tests" class="nav-link" data-scroll-target="#number-of-valid-tests">Number of valid tests</a></li>
+  <li><a href="#testing-trend-over-time" id="toc-testing-trend-over-time" class="nav-link" data-scroll-target="#testing-trend-over-time">Testing trend over time</a></li>
+  </ul></li>
+  <li><a href="#number-of-positive-tests" id="toc-number-of-positive-tests" class="nav-link" data-scroll-target="#number-of-positive-tests">Number of positive tests</a>
+  <ul class="collapse">
+  <li><a href="#number-of-positive-tests-in-the-first-100-days" id="toc-number-of-positive-tests-in-the-first-100-days" class="nav-link" data-scroll-target="#number-of-positive-tests-in-the-first-100-days">Number of positive tests in the first 100 days</a></li>
+  <li><a href="#tests-by-age-group" id="toc-tests-by-age-group" class="nav-link" data-scroll-target="#tests-by-age-group">Tests by age group</a></li>
+  </ul></li>
+  <li><a href="#processing-times" id="toc-processing-times" class="nav-link" data-scroll-target="#processing-times">Processing times</a></li>
+  <li><a href="#bonus---viral-load" id="toc-bonus---viral-load" class="nav-link" data-scroll-target="#bonus---viral-load">Bonus - Viral load</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/MartinaHYang/IntroToR/edit/main/WebsiteCodes/Solutions4.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MartinaHYang/IntroToR/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Solutions</h1>
+<h1 class="title">Solutions: Medical Data</h1>
 </div>
 
 <div>
@@ -391,8 +444,223 @@ ul.task-list li input[type="checkbox"] {
 
 
 <hr>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"ggplot2"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"medicaldata"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">"medicaldata"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(medicaldata)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"dplyr"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">"dplyr"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">"tidyr"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">"tidyr"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Use the <code>covid_testing</code> data set and everything you’ve learned so far to answer the following questions:</p>
+<section id="clinics-included" class="level2">
+<h2 class="anchored" data-anchor-id="clinics-included">Clinics included</h2>
+<p><strong>How many clinics participated in the study, and how many valid tests were performed on each one? Did the testing trend vary over time?</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>covid<span class="ot">&lt;-</span>covid_testing</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="number-of-clinics" class="level3">
+<h3 class="anchored" data-anchor-id="number-of-clinics">Number of clinics</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>clinics<span class="ot">&lt;-</span> covid <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>          dplyr<span class="sc">::</span><span class="fu">select</span>(subject_id,clinic_name,result,pan_day) <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>          dplyr<span class="sc">::</span><span class="fu">distinct</span>()</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">unique</span>(clinics<span class="sc">$</span>clinic_name))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 88</code></pre>
+</div>
+</div>
+</section>
+<section id="number-of-valid-tests" class="level3">
+<h3 class="anchored" data-anchor-id="number-of-valid-tests">Number of valid tests</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>clinics <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(result<span class="sc">!=</span><span class="st">"invalid"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(clinic_name) <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarize</span>(<span class="at">n_test =</span> <span class="fu">length</span>(clinic_name)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="fu">desc</span>(n_test))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 88 × 2
+   clinic_name        n_test
+   &lt;chr&gt;               &lt;int&gt;
+ 1 clinical lab         7397
+ 2 emergency dept       3353
+ 3 oncology day hosp     509
+ 4 nicu                  285
+ 5 laboratory            262
+ 6 picu                  258
+ 7 care ntwk             231
+ 8 line clinical lab-    218
+ 9 inpatient ward a      207
+10 radiation oncology    161
+# ℹ 78 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="testing-trend-over-time" class="level3">
+<h3 class="anchored" data-anchor-id="testing-trend-over-time">Testing trend over time</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>covid <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(pan_day<span class="sc">&lt;=</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pan_day) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n=</span><span class="fu">length</span>(result)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(.,<span class="fu">aes</span>(<span class="at">x=</span>pan_day,<span class="at">y=</span>n))<span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">"Number of tests per day"</span>)<span class="sc">+</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">"Pandemic day"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Solutions4_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="number-of-positive-tests" class="level2">
+<h2 class="anchored" data-anchor-id="number-of-positive-tests">Number of positive tests</h2>
+<p><strong>How many patients tested positive vs negative in the first 100 days of the pandemic? Do you notice any difference with the age of the patients? Hint: You can make two age groups and calculate the percentage each age group in positive vs negative tests.</strong></p>
+<section id="number-of-positive-tests-in-the-first-100-days" class="level3">
+<h3 class="anchored" data-anchor-id="number-of-positive-tests-in-the-first-100-days">Number of positive tests in the first 100 days</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>covid <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(result<span class="sc">!=</span><span class="st">"invalid"</span> <span class="sc">&amp;</span> pan_day<span class="sc">&lt;=</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(result) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n=</span><span class="fu">length</span>(subject_id))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  result       n
+  &lt;chr&gt;    &lt;int&gt;
+1 negative 13225
+2 positive   780</code></pre>
+</div>
+</div>
+</section>
+<section id="tests-by-age-group" class="level3">
+<h3 class="anchored" data-anchor-id="tests-by-age-group">Tests by age group</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>tsts_age<span class="ot">&lt;-</span>covid <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">filter</span>(result<span class="sc">!=</span><span class="st">"invalid"</span> <span class="sc">&amp;</span> pan_day<span class="sc">&lt;=</span><span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>            <span class="fu">mutate</span>(<span class="at">age_group=</span><span class="fu">ifelse</span>(age<span class="sc">&lt;=</span><span class="dv">21</span>,<span class="st">"children"</span>,<span class="st">"adults"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">group_by</span>(age_group,result) <span class="sc">%&gt;%</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">summarize</span>(<span class="at">n=</span><span class="fu">length</span>(subject_id)) <span class="sc">%&gt;%</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">mutate</span>(<span class="at">percent_total=</span>n<span class="sc">/</span><span class="fu">sum</span>(n)<span class="sc">*</span><span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has regrouped the output.
+ℹ Summaries were computed grouped by age_group and result.
+ℹ Output is grouped by age_group.
+ℹ Use `summarise(.groups = "drop_last")` to silence this message.
+ℹ Use `summarise(.by = c(age_group, result))` for per-operation grouping
+  (`?dplyr::dplyr_by`) instead.</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>tsts_age</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 4
+# Groups:   age_group [2]
+  age_group result       n percent_total
+  &lt;chr&gt;     &lt;chr&gt;    &lt;int&gt;         &lt;dbl&gt;
+1 adults    negative  2627         92.1 
+2 adults    positive   226          7.92
+3 children  negative 10598         95.0 
+4 children  positive   554          4.97</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="processing-times" class="level2">
+<h2 class="anchored" data-anchor-id="processing-times">Processing times</h2>
+<p><strong>Look at the specimen processing time to receipt, did the sample processing times improve over the first 100 days of the pandemic? Plot the median processing times of each day over the course of the pandemic and then compare the summary statistics of the first 50 vs the last 50 days</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>covid <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pan_day) <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">median_col_rec_tat=</span><span class="fu">median</span>(col_rec_tat)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(.,<span class="fu">aes</span>(<span class="at">x=</span>pan_day,<span class="at">y=</span>median_col_rec_tat)) <span class="sc">+</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Solutions4_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>covid <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pan_day_group=</span><span class="fu">ifelse</span>(pan_day<span class="sc">&lt;</span><span class="dv">50</span>,<span class="st">"first_50"</span>,<span class="st">"last_50"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pan_day_group) <span class="sc">%&gt;%</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">mean_col_rec_tat=</span><span class="fu">mean</span>(col_rec_tat),</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">median_col_rec_tat=</span><span class="fu">median</span>(col_rec_tat),</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">min_col_rec_tat=</span><span class="fu">min</span>(col_rec_tat),</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">max_col_rec_tat=</span><span class="fu">max</span>(col_rec_tat))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  pan_day_group mean_col_rec_tat median_col_rec_tat min_col_rec_tat
+  &lt;chr&gt;                    &lt;dbl&gt;              &lt;dbl&gt;           &lt;dbl&gt;
+1 first_50                  3.26                1.9               0
+2 last_50                   9.41                1.9               0
+# ℹ 1 more variable: max_col_rec_tat &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="bonus---viral-load" class="level2">
+<h2 class="anchored" data-anchor-id="bonus---viral-load">Bonus - Viral load</h2>
+<p><strong>Higher viral loads are detected in less PCR cycles.</strong></p>
+<p><strong>What can you observe about the viral load of positive vs negative samples.</strong></p>
+<p><strong>Do you notice anything differences in viral load across ages in the positive samples?</strong></p>
+<p><strong>Hint: Also split the data into two age groups and try using geom_boxplot()</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(covid,<span class="fu">aes</span>(<span class="at">y=</span>ct_result,<span class="at">x=</span>result,<span class="at">color=</span>result))<span class="sc">+</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Solutions4_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>covid <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">age_group=</span><span class="fu">ifelse</span>(age<span class="sc">&lt;=</span><span class="dv">21</span>,<span class="st">"children"</span>,<span class="st">"adults"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(.,<span class="fu">aes</span>(<span class="at">y=</span>ct_result,<span class="at">x=</span>result,<span class="at">color=</span>age_group))<span class="sc">+</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Solutions4_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -797,8 +1065,8 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../WebsiteCodes/Exercise4.html" class="pagination-link" aria-label="🎃ＥＸＥＲＣＩＳＥ ＃４">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">🎃ＥＸＥＲＣＩＳＥ ＃４</span>
+      <a href="../WebsiteCodes/Exercise4.html" class="pagination-link" aria-label="🎃ＥＸＥＲＣＩＳＥ＃４">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">🎃ＥＸＥＲＣＩＳＥ＃４</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
@@ -815,7 +1083,7 @@ ul.task-list li input[type="checkbox"] {
 </div>   
     <div class="nav-footer-center">
 <p>Workshop created as part of the McGill Initiative in Computational Medicine.</p>
-<div class="toc-actions"><ul><li><a href="https://github.com/MartinaHYang/IntroToR/edit/main/WebsiteCodes/Solutions4.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MartinaHYang/IntroToR/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/MartinaHYang/IntroToR/edit/main/WebsiteCodes/Solutions4.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MartinaHYang/IntroToR/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
 </div>
