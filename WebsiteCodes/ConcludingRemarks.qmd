@@ -1,8 +1,49 @@
 ---
-title: "Title"
+title: "Concluding Remarks"
 subtitle: ""
 description: "Materials adapted from Adrien Osakwe, Larisa M. Soto and Xiaoqi Xie."
 ---
 
----
+------------------------------------------------------------------------
 
+## 1. What We Learned Today
+
+We have covered the foundational pillars of R programming for bioinformatics:
+
+-   **The Ecosystem:** Understanding the difference between **Base** **R, RStudio, CRAN**, **BioConductor, and GitHub**.
+
+-   **The Basics:** Mastering data types (vectors, factors, lists) and the "home base" of the **Working Directory**.
+
+-   **Data Wrangling:** Using `dplyr` verbs and the **Pipe (`%>%`)** to turn messy spreadsheets into clean tables without creating intermediate "clutter."
+
+-   **Visualization:** Moving beyond basic plots to the layered "Grammar of Graphics" in **`ggplot2`**.
+
+-   **Reproducibility:** Learning how to write robust functions and manage project scripts.
+
+## 2. What’s Next?
+
+Today was about the **mechanics** of R. In the next stage, we move toward **interpretation**.
+
+### Statistics in R Workshop (Part 2)
+
+-   **Data Wrangling:** Advanced joining of datasets (merging clinical data with genomic counts).
+
+-   **Statistical Analysis:** Performing T-tests, ANOVA, and correlation studies.
+
+-   **Regression:** Building linear models to understand the relationship between variables.
+
+-   **Reporting:** Using Quarto to create automated PDF or HTML reports for your PI.
+
+## 3. Resources for Continued Learning
+
+As you continue your R study, these resources will be your best friends:
+
+-   [**R for Data Science (2e)**](https://r4ds.hadley.nz/)
+
+-   [**Bioconductor Tutorials**](https://www.google.com/search?q=https://www.bioconductor.org/help/tutorials/)
+
+-   [**Cheat Sheets**](https://posit.co/resources/cheatsheets/)
+
+### 4. **Thank you for attending!**
+
+![](../images/McGillRecordQR.png){fig-align="center"}
