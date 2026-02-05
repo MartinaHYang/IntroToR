@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -365,12 +400,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#atomic-classes" id="toc-atomic-classes" class="nav-link active" data-scroll-target="#atomic-classes">Atomic Classes</a></li>
-  <li><a href="#vectors" id="toc-vectors" class="nav-link" data-scroll-target="#vectors">Vectors</a></li>
-  <li><a href="#matrices" id="toc-matrices" class="nav-link" data-scroll-target="#matrices">Matrices</a></li>
-  <li><a href="#lists" id="toc-lists" class="nav-link" data-scroll-target="#lists">Lists</a></li>
-  <li><a href="#data-frames" id="toc-data-frames" class="nav-link" data-scroll-target="#data-frames">Data frames</a></li>
-  <li><a href="#coercion" id="toc-coercion" class="nav-link" data-scroll-target="#coercion">Coercion</a></li>
+  <li><a href="#atomic-classes" id="toc-atomic-classes" class="nav-link active" data-scroll-target="#atomic-classes">1. Atomic Classes</a></li>
+  <li><a href="#vectors" id="toc-vectors" class="nav-link" data-scroll-target="#vectors">2. Vectors</a></li>
+  <li><a href="#matrices" id="toc-matrices" class="nav-link" data-scroll-target="#matrices">3. Matrices</a></li>
+  <li><a href="#lists" id="toc-lists" class="nav-link" data-scroll-target="#lists">4. Lists</a></li>
+  <li><a href="#data-frames" id="toc-data-frames" class="nav-link" data-scroll-target="#data-frames">5. Data frames</a></li>
+  <li><a href="#coercion" id="toc-coercion" class="nav-link" data-scroll-target="#coercion">6. Coercion</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/MartinaHYang/IntroToR/edit/main/WebsiteCodes/Exercise1.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MartinaHYang/IntroToR/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -403,33 +438,74 @@ ul.task-list li input[type="checkbox"] {
 
 <hr>
 <section id="atomic-classes" class="level2">
-<h2 class="anchored" data-anchor-id="atomic-classes">Atomic Classes</h2>
+<h2 class="anchored" data-anchor-id="atomic-classes">1. Atomic Classes</h2>
 <ol type="1">
 <li>Write a piece of code that stores a number in a variable and then check if it is greater than 5. Try to use comments!</li>
-<li>Bonus: Is there a way to store the result after checking the number?</li>
+<li><strong>Bonus:</strong> Is there a way to store the result after checking the number?</li>
 </ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1.  Write a piece of code that stores a number in a variable and then check if it is greater than 5. Try to use comments!</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 2.  Bonus: Is there a way to store the result after checking the number?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section id="vectors" class="level2">
-<h2 class="anchored" data-anchor-id="vectors">Vectors</h2>
+<h2 class="anchored" data-anchor-id="vectors">2. Vectors</h2>
 <p>Make a vector with the numbers 1 through 26. Multiply the vector by 2, and give the resulting vector names A through Z (hint: there is a built in vector called LETTERS).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a vector with the numbers 1 through 26. Multiply the vector by 2, and give the resulting vector names A through Z (hint: there is a built in vector called LETTERS).</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section id="matrices" class="level2">
-<h2 class="anchored" data-anchor-id="matrices">Matrices</h2>
+<h2 class="anchored" data-anchor-id="matrices">3. Matrices</h2>
 <p>Make a matrix with the numbers 1:50, with 5 columns and 10 rows. Did the matrix function fill your matrix by column, or by row, as its default behavior? Once you have figured it out, try to change the default. (hint: read the documentation for <code>matrix</code>)</p>
-<p>Bonus: Which of the following commands was used to generate the matrix below?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make a matrix with the numbers 1:50, with 5 columns and 10 rows. Did the matrix function fill your matrix by column, or by row, as its default behavior? Once you have figured it out, try to change the default. (hint: read the documentation for `matrix`)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>Bonus:</strong> Which of the following commands was used to generate the matrix below?</p>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td></td>
+<td><strong>[,1]</strong></td>
+<td><strong>[,2]</strong></td>
+</tr>
+<tr class="even">
+<td><strong>[1,]</strong></td>
+<td>4</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td><strong>[2,]</strong></td>
+<td>9</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td><strong>[3,]</strong></td>
+<td>10</td>
+<td>7</td>
+</tr>
+</tbody>
+</table>
 <ul>
 <li><code>matrix(c(4, 1, 9, 5, 10, 7), nrow = 3)</code></li>
 <li><code>matrix(c(4, 9, 10, 1, 5, 7), ncol = 2, byrow = TRUE)</code></li>
 <li><code>matrix(c(4, 9, 10, 1, 5, 7), nrow = 2)</code></li>
 <li><code>matrix(c(4, 1, 9, 5, 10, 7), ncol = 2, byrow = TRUE)</code></li>
 </ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bonus: Which of the following commands was used to generate the matrix below?</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section id="lists" class="level2">
-<h2 class="anchored" data-anchor-id="lists">Lists</h2>
+<h2 class="anchored" data-anchor-id="lists">4. Lists</h2>
 <p>Create a list of length two containing a character vector for each of the data sections: (1) Data types and (2) Data structures. Populate each character vector with the names of the data types and data structures, respectively.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a list of length two containing a character vector for each of the data sections: (1) Data types and (2) Data structures. Populate each character vector with the names of the data types and data structures, respectively.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section id="data-frames" class="level2">
-<h2 class="anchored" data-anchor-id="data-frames">Data frames</h2>
+<h2 class="anchored" data-anchor-id="data-frames">5. Data frames</h2>
 <p>There are several subtly different ways to call variables, observations and elements from data frames. Try them all and discuss with your team what they return. (Hint, use the function <code>typeof()</code>)</p>
 <ul>
 <li><code>iris[1]</code></li>
@@ -440,10 +516,16 @@ ul.task-list li input[type="checkbox"] {
 <li><code>iris[,1]</code></li>
 <li><code>iris[1,]</code></li>
 </ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># There are several subtly different ways to call variables, observations and elements from data frames. Try them all and discuss with your team what they return. (Hint, use the function typeof())</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section id="coercion" class="level2">
-<h2 class="anchored" data-anchor-id="coercion">Coercion</h2>
-<p>Take the list you created in 3 and coerce it into a data frame. Then change the names of the columns to “dataTypes” and “dataStructures”</p>
+<h2 class="anchored" data-anchor-id="coercion">6. Coercion</h2>
+<p>Take the list you created in 4 and coerce it into a data frame. Then change the names of the columns to “dataTypes” and “dataStructures”</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Take the list you created in 4 and coerce it into a data frame. Then change the names of the columns to "dataTypes" and "dataStructures"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 
 </section>
@@ -865,7 +947,7 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© CC-By Martina, 2026. All rights reserved.</p>
+<p>© CC-By McGill QLS-MiCM, 2026. All rights reserved.</p>
 </div>   
     <div class="nav-footer-center">
 <p>Workshop created as part of the McGill Initiative in Computational Medicine.</p>

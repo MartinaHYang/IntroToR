@@ -410,8 +410,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#access-content" id="toc-access-content" class="nav-link" data-scroll-target="#access-content">3. Access Content ($)</a></li>
   <li><a href="#the-equal-operator" id="toc-the-equal-operator" class="nav-link" data-scroll-target="#the-equal-operator">4. The Equal Operator (=)</a>
   <ul class="collapse">
-  <li><a href="#assignment-not-recommended" id="toc-assignment-not-recommended" class="nav-link" data-scroll-target="#assignment-not-recommended">4.1 Assignment (Not Recommended)</a></li>
-  <li><a href="#defining-function-arguments-recommended" id="toc-defining-function-arguments-recommended" class="nav-link" data-scroll-target="#defining-function-arguments-recommended">4.2 Defining Function Arguments (Recommended)</a></li>
+  <li><a href="#assignment-not-recommended" id="toc-assignment-not-recommended" class="nav-link" data-scroll-target="#assignment-not-recommended"><strong>4.1 Assignment (Not Recommended)</strong></a></li>
+  <li><a href="#defining-function-arguments-recommended" id="toc-defining-function-arguments-recommended" class="nav-link" data-scroll-target="#defining-function-arguments-recommended"><strong>4.2 Defining Function Arguments (Recommended)</strong></a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/MartinaHYang/IntroToR/edit/main/WebsiteCodes/03SyntaxOp.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/MartinaHYang/IntroToR/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -448,7 +448,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>It includes comment line, assignation, access content, and equal.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../images/SyntaxOperators.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<p><img src="../images/SyntaxOperators.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></p>
 </figure>
 </div>
 <section id="comments-writing-notes-to-your-future-self" class="level2">
@@ -504,10 +504,11 @@ Note
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Best Practices for Commenting
+Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
+<p><strong>Best Practices for Commenting</strong></p>
 <ol type="1">
 <li><p><strong>Don’t explain “What”:</strong> R (and yourself) knows <em>what</em> the code is doing.</p>
 <ul>
@@ -542,10 +543,11 @@ Note
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Shortcut for &lt;-
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
+<p><strong>Shortcut for &lt;-</strong></p>
 <p>Instead of typing two characters, use these shortcuts to insert the assignment arrow:</p>
 <ul>
 <li><p>Mac: Option + - (minus key)</p></li>
@@ -559,10 +561,11 @@ Note
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span><strong>A Note on Coding Style: To Space or Not to Space?</strong>
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
+<p><strong>A Note on Coding Style: To Space or Not to Space?</strong></p>
 <p>While var1&lt;-“hello world” works, it is a little bit “dirty” and hard to read.</p>
 <p>Following the Tidyverse Style Guide, you should always put a space before and after the assignment operator: <code>var1 &lt;- "hello world"</code></p>
 </div>
@@ -571,7 +574,7 @@ Note
 <section id="other-assignment-methods" class="level3">
 <h3 class="anchored" data-anchor-id="other-assignment-methods">2.2 Other Assignment Methods</h3>
 <section id="the-equals-sign" class="level4">
-<h4 class="anchored" data-anchor-id="the-equals-sign">2.2.1 The Equals Sign (=):</h4>
+<h4 class="anchored" data-anchor-id="the-equals-sign"><strong>2.2.1 The Equals Sign (=):</strong></h4>
 <p>While = works for assignment, R users generally avoid it. In R, = is typically reserved for defining arguments inside a function. Using it for general assignment is considered poor style.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># It is also possible to use the '=' sign, but is NOT a good practice</span></span>
@@ -583,7 +586,7 @@ Note
 </div>
 </section>
 <section id="right-hand-assignment--" class="level4">
-<h4 class="anchored" data-anchor-id="right-hand-assignment--">2.2.2 Right-Hand Assignment (-&gt;):</h4>
+<h4 class="anchored" data-anchor-id="right-hand-assignment--"><strong>2.2.2 Right-Hand Assignment (-&gt;):</strong></h4>
 <p>You can technically point the arrow the other way: <code>"data" -&gt; var1.</code></p>
 <p>This is rarely used but can be helpful at the end of a long pipe (|&gt;) if you decide to save the final result into a new variable.</p>
 <div class="cell">
@@ -599,7 +602,7 @@ Note
 <h3 class="anchored" data-anchor-id="printing-variables">2.3 Printing Variables</h3>
 <p>Once you have stored data in a variable, there are several ways to “call” it back to the console:</p>
 <section id="direct-call" class="level4">
-<h4 class="anchored" data-anchor-id="direct-call">2.3.1 Direct Call</h4>
+<h4 class="anchored" data-anchor-id="direct-call"><strong>2.3.1 Direct Call</strong></h4>
 <p>Simply type the name. This is the most common method during interactive analysis.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="st">"hello world!"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -609,7 +612,7 @@ Note
 </div>
 </section>
 <section id="using-function-print-and-cat" class="level4">
-<h4 class="anchored" data-anchor-id="using-function-print-and-cat">2.3.2 Using Function print() and cat()</h4>
+<h4 class="anchored" data-anchor-id="using-function-print-and-cat"><strong>2.3.2 Using Function print() and cat()</strong></h4>
 <p><strong>print():</strong> Explicitly prints the object. This is often used inside “loops” or complex functions where R might not automatically show the output.</p>
 <p><strong>cat():</strong> Short for “concatenate.” It prints the raw text without the [1] index marker or quotes. It is great for creating clean, human-readable messages.</p>
 <div class="cell">
@@ -698,7 +701,7 @@ Note
 <h2 class="anchored" data-anchor-id="the-equal-operator">4. The Equal Operator (=)</h2>
 <p>In R, the single equals sign (=) has two primary roles, but they are not created equal.</p>
 <section id="assignment-not-recommended" class="level3">
-<h3 class="anchored" data-anchor-id="assignment-not-recommended">4.1 Assignment (Not Recommended)</h3>
+<h3 class="anchored" data-anchor-id="assignment-not-recommended"><strong>4.1 Assignment (Not Recommended)</strong></h3>
 <p>While <code>=</code> can be used to assign a value to a variable, R users generally avoid this. In the R community, using <code>=</code> for assignment is considered poor style because it can be confused with mathematical equality or function arguments.</p>
 <p><strong>Always prefer <code>&lt;-</code> for creating variables.</strong></p>
 <div class="cell">
@@ -711,9 +714,9 @@ Note
 </div>
 </section>
 <section id="defining-function-arguments-recommended" class="level3">
-<h3 class="anchored" data-anchor-id="defining-function-arguments-recommended">4.2 Defining Function Arguments (Recommended)</h3>
+<h3 class="anchored" data-anchor-id="defining-function-arguments-recommended"><strong>4.2 Defining Function Arguments (Recommended)</strong></h3>
 <p>The “correct” and most common use of the = sign in R is to define arguments inside a function. This tells the function exactly how you want it to behave.</p>
-<p>Example: The <code>paste()</code> Function</p>
+<p><strong>Example:</strong> The <code>paste()</code> Function</p>
 <p>The <code>paste()</code> function joins multiple pieces of text together. It uses an argument called <code>sep</code> to decide what character should go between the pieces.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>cal <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">3</span></span>
@@ -735,12 +738,12 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Deep Dive: ?paste</p>
+<p><strong>Deep Dive: ?paste</strong></p>
 <p>If you look at the help documentation for paste(), you will see the usage and arguments explanations:</p>
-<p>Usage</p>
+<p><strong>Usage</strong></p>
 <p>paste(…, sep = ” “, collapse = NULL)</p>
-<p>Arguments</p>
-<p>sep: a character string to separate the terms.</p>
+<p><strong>Arguments</strong></p>
+<p><strong>sep:</strong> a character string to separate the terms.</p>
 <p>By using sep = ” = “, we are overriding the default space (” “) and telling R to put an equals sign between our text and our result.</p>
 </div>
 </div>
@@ -1166,7 +1169,7 @@ Note
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-<p>© CC-By Martina, 2026. All rights reserved.</p>
+<p>© CC-By McGill QLS-MiCM, 2026. All rights reserved.</p>
 </div>   
     <div class="nav-footer-center">
 <p>Workshop created as part of the McGill Initiative in Computational Medicine.</p>
