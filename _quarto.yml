@@ -12,7 +12,7 @@ website:
   repo-actions: [edit, issue]
   
   page-footer:
-    left: "&copy; CC-By Martina, 2026. All rights reserved."
+    left: "&copy; CC-By McGill QLS-MiCM, 2026. All rights reserved."
     right: "This page is built with [Quarto](https://quarto.org/)."
     center: "Workshop created as part of the McGill Initiative in Computational Medicine."
     
