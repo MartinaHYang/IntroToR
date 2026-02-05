@@ -24,7 +24,7 @@ We will use this site to cover the foundational concepts of R, while performing 
 -   [R \>4.0](https://www.r-project.org)
 -   [RStudio](https://www.rstudio.com/products/rstudio/download/)
 
-**You could refer to the step-by-step instructions [Getting Started: Installing R and RStudio](https://martinahyang.github.io/IntroToR/WebsiteCodes/Setup.html){target="_blank"}.**
+**You could refer to the step-by-step instructions [Getting Started: Installing R and RStudio](https://martinahyang.github.io/IntroToR/WebsiteCodes/Setup.html).**
 
 Once you have setup R and RStudio copy the code below to install the packages required for the workshop.
 
