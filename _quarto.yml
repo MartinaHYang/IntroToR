@@ -71,7 +71,7 @@ website:
             href: WebsiteCodes/07Loop.qmd
           - text: "𝟴 Create New Functions"
             href: WebsiteCodes/08NewFunctions.qmd
-          - text: "𝟵 Packages"
+          - text: "𝟵 Installing New Packages"
             href: WebsiteCodes/09Packages.qmd
       - section: "𝐑 𝐁𝐀𝐒𝐈𝐂𝐒: Data Manipulation"
         contents:
