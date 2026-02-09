@@ -26,7 +26,10 @@ website:
         text: "GLS-MiCM"
       - icon: github
         href: https://github.com/QLS-MiCM
-        text: "MiCM Github"     
+        text: "MiCM Github"
+      - icon: github
+        href: https://github.com/MartinaHYang/IntroToR
+        text: "IntroToR Codes" 
     style: "docked"
     search: true
     collapse-level: 2
