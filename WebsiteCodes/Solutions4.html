@@ -461,7 +461,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">"tidyr"</span>)</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Use the <code>covid_testing</code> data set and everything you’ve learned so far to answer the following questions:</p>
+<p>Use the <code>covid_testing</code> data set from package <code>medicaldata</code> and everything you’ve learned so far to answer the following questions:</p>
 <section id="clinics-included" class="level2">
 <h2 class="anchored" data-anchor-id="clinics-included">Clinics included</h2>
 <p><strong>How many clinics participated in the study, and how many valid tests were performed on each one? Did the testing trend vary over time?</strong></p>
@@ -503,6 +503,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  9 inpatient ward a      207
 10 radiation oncology    161
 # ℹ 78 more rows</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Step-by-Step Breakdown</strong></p>
+<ol type="1">
+<li><strong><code>filter(result != "invalid")</code></strong></li>
+</ol>
+<p>You are “cleaning the pipe.” Before doing any math, you remove the “noise.”</p>
+<ul>
+<li><p><strong>The Question:</strong> “Is this a real test result?”</p></li>
+<li><p><strong>The Action:</strong> Only rows where the result is <strong>NOT</strong> “invalid” are allowed to move to the next step.</p></li>
+</ul>
+<ol start="2" type="1">
+<li><strong><code>group_by(clinic_name)</code></strong></li>
+</ol>
+<p>You are “sorting the mail.” R doesn’t calculate anything yet; it just creates invisible folders for each clinic.</p>
+<ul>
+<li><strong>The Action:</strong> R puts all “Clinic A” rows in one bucket and “Clinic B” rows in another.</li>
+</ul>
+<ol start="3" type="1">
+<li><code>summarize(n_test = length(clinic_name))</code></li>
+</ol>
+<p>You are “collapsing the buckets.” This is where the many rows of your original data become one single summary row per group.</p>
+<ul>
+<li><p><strong>The Action:</strong> Inside each clinic’s bucket, R counts how many items are there.</p></li>
+<li><p><strong>Note:</strong> You can also use the shorthand <code>n()</code> instead of <code>length(clinic_name)</code>—it does the exact same thing!</p></li>
+</ul>
+<ol start="4" type="1">
+<li><strong><code>arrange(desc(n_test))</code></strong></li>
+</ol>
+<p>You are “ranking the results.”</p>
+<ul>
+<li><strong>The Action:</strong> By default, R sorts low-to-high. <code>desc()</code> (descending) flips it so the clinic with the <strong>most</strong> tests appears at the very top.</li>
+</ul>
 </div>
 </div>
 </section>
@@ -568,34 +611,89 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 4 children  positive   554          4.97</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>1. The Cleaning Phase (<code>filter</code>)</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(result <span class="sc">!=</span> <span class="st">"invalid"</span> <span class="sc">&amp;</span> pan_day <span class="sc">&lt;=</span> <span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Before any analysis, you are narrowing the focus to high-quality, early-pandemic data.</p>
+<ul>
+<li><p><strong><code>result != "invalid"</code></strong>: Removes tests that didn’t work (QC failure).</p></li>
+<li><p><strong><code>&amp;</code></strong>: A logical “AND.” Both conditions must be true.</p></li>
+<li><p><strong><code>pan_day &lt;= 100</code></strong>: Only includes data from the first 100 days of the pandemic.</p></li>
+</ul>
+<p><strong>2. The Classification Phase (<code>mutate</code>)</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">age_group =</span> <span class="fu">ifelse</span>(age <span class="sc">&lt;=</span> <span class="dv">21</span>, <span class="st">"children"</span>, <span class="st">"adults"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>You are creating a new column “on the fly” to categorize your patients.</p>
+<ul>
+<li><strong><code>ifelse(test, yes, no)</code></strong>: This is a logical switch. If a patient is 21 or younger, they are labeled “children”; otherwise, they are “adults.”</li>
+</ul>
+<p><strong>3. The Organization Phase (<code>group_by</code>)</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(age_group, result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This is the most critical step. You are telling R to create sub-buckets for every combination of age and test outcome (e.g., “adults-positive,” “adults-negative,” “children-positive,” etc.).</p>
+<p><strong>4. The Aggregation Phase (<code>summarize</code>)</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">length</span>(subject_id))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>R collapses the buckets created in the previous step.</p>
+<ul>
+<li>It counts how many <code>subject_id</code> entries are in each bucket and stores that number in a new column called <strong><code>n</code></strong>.</li>
+</ul>
+<p><strong>5. The Calculation Phase (<code>mutate</code>)</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">percent_total =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This is a “Smart Calculation.” Because the data is still grouped by <code>age_group</code>, the <code>sum(n)</code> happens <strong>separately for each group</strong>.</p>
+<ul>
+<li><p><strong>Example</strong>: For the “adults” rows, it divides their count by the <em>total number of adults</em>.</p></li>
+<li><p>This gives you the percentage of results <em>within</em> that specific age group, rather than the percentage of the entire dataset.</p></li>
+</ul>
+<hr>
+<p><strong>Notes on <code>sum(n)</code></strong></p>
+<p>In this specific code, the <code>percent_total</code> will represent the percentage of results <strong>per age group</strong> (e.g., what % of children were positive vs.&nbsp;negative). If you wanted the percentage of the <strong>entire table</strong>, you would need to <code>ungroup()</code> the data before this last <code>mutate</code>.</p>
+</div>
+</div>
 </section>
 </section>
 <section id="processing-times" class="level2">
 <h2 class="anchored" data-anchor-id="processing-times">Processing times</h2>
 <p><strong>Look at the specimen processing time to receipt, did the sample processing times improve over the first 100 days of the pandemic? Plot the median processing times of each day over the course of the pandemic and then compare the summary statistics of the first 50 vs the last 50 days</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>covid <span class="sc">%&gt;%</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pan_day) <span class="sc">%&gt;%</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">median_col_rec_tat=</span><span class="fu">median</span>(col_rec_tat)) <span class="sc">%&gt;%</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(.,<span class="fu">aes</span>(<span class="at">x=</span>pan_day,<span class="at">y=</span>median_col_rec_tat)) <span class="sc">+</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>covid <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pan_day) <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">median_col_rec_tat=</span><span class="fu">median</span>(col_rec_tat)) <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(.,<span class="fu">aes</span>(<span class="at">x=</span>pan_day,<span class="at">y=</span>median_col_rec_tat)) <span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Solutions4_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Solutions4_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>covid <span class="sc">%&gt;%</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pan_day_group=</span><span class="fu">ifelse</span>(pan_day<span class="sc">&lt;</span><span class="dv">50</span>,<span class="st">"first_50"</span>,<span class="st">"last_50"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pan_day_group) <span class="sc">%&gt;%</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">mean_col_rec_tat=</span><span class="fu">mean</span>(col_rec_tat),</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">median_col_rec_tat=</span><span class="fu">median</span>(col_rec_tat),</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">min_col_rec_tat=</span><span class="fu">min</span>(col_rec_tat),</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">max_col_rec_tat=</span><span class="fu">max</span>(col_rec_tat))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>covid <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pan_day_group=</span><span class="fu">ifelse</span>(pan_day<span class="sc">&lt;</span><span class="dv">50</span>,<span class="st">"first_50"</span>,<span class="st">"last_50"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pan_day_group) <span class="sc">%&gt;%</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">mean_col_rec_tat=</span><span class="fu">mean</span>(col_rec_tat),</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">median_col_rec_tat=</span><span class="fu">median</span>(col_rec_tat),</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">min_col_rec_tat=</span><span class="fu">min</span>(col_rec_tat),</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">max_col_rec_tat=</span><span class="fu">max</span>(col_rec_tat))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
   pan_day_group mean_col_rec_tat median_col_rec_tat min_col_rec_tat
@@ -613,25 +711,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Do you notice anything differences in viral load across ages in the positive samples?</strong></p>
 <p><strong>Hint: Also split the data into two age groups and try using geom_boxplot()</strong></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(covid,<span class="fu">aes</span>(<span class="at">y=</span>ct_result,<span class="at">x=</span>result,<span class="at">color=</span>result))<span class="sc">+</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(covid,<span class="fu">aes</span>(<span class="at">y=</span>ct_result,<span class="at">x=</span>result,<span class="at">color=</span>result))<span class="sc">+</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Solutions4_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Solutions4_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>covid <span class="sc">%&gt;%</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">age_group=</span><span class="fu">ifelse</span>(age<span class="sc">&lt;=</span><span class="dv">21</span>,<span class="st">"children"</span>,<span class="st">"adults"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(.,<span class="fu">aes</span>(<span class="at">y=</span>ct_result,<span class="at">x=</span>result,<span class="at">color=</span>age_group))<span class="sc">+</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>covid <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">age_group=</span><span class="fu">ifelse</span>(age<span class="sc">&lt;=</span><span class="dv">21</span>,<span class="st">"children"</span>,<span class="st">"adults"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(.,<span class="fu">aes</span>(<span class="at">y=</span>ct_result,<span class="at">x=</span>result,<span class="at">color=</span>age_group))<span class="sc">+</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Solutions4_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Solutions4_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
